@@ -29,7 +29,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         btnLogout = findViewById(R.id.btn_logout);
         btnTodoList = findViewById(R.id.btn_todo_list);
 
-        tvWelcome.setText("欢迎回来，" + userName);
+        tvWelcome.setText("欢迎回来，" + (userName != null ? userName : "用户"));
         btnLogout.setOnClickListener(this);
         btnTodoList.setOnClickListener(this);
     }
