@@ -1,0 +1,78 @@
+[
+  {
+    "text": "注册",
+    "interactions": [
+      "clickable",
+      "focusable"
+    ],
+    "center": "[360,628]",
+    "resource-id": "btn_register",
+    "key": 3506402
+  },
+  {
+    "text": "同意用户协议",
+    "interactions": [
+      "checkable",
+      "clickable",
+      "focusable"
+    ],
+    "center": "[116,736]",
+    "resource-id": "rb_agree",
+    "key": 3506402
+  },
+  {
+    "text": "MyAndroidPT",
+    "center": "[158,104]",
+    "key": 3506402
+  },
+  {
+    "text": "账号：",
+    "center": "[115,276]",
+    "key": 3506402
+  },
+  {
+    "text": "请输入用户名或手机号",
+    "interactions": [
+      "clickable",
+      "focusable",
+      "long-clickable"
+    ],
+    "center": "[445,276]",
+    "resource-id": "et_account",
+    "key": 3506402
+  },
+  {
+    "text": "密码：",
+    "center": "[115,389]",
+    "key": 3506402
+  },
+  {
+    "text": "请输入密码",
+    "interactions": [
+      "clickable",
+      "focusable",
+      "long-clickable",
+      "password"
+    ],
+    "center": "[445,389]",
+    "resource-id": "et_password",
+    "key": 3506402
+  },
+  {
+    "text": "确认密码：",
+    "center": "[165,502]",
+    "key": 3506402
+  },
+  {
+    "text": "再次输入密码",
+    "interactions": [
+      "clickable",
+      "focusable",
+      "long-clickable",
+      "password"
+    ],
+    "center": "[495,502]",
+    "resource-id": "et_password_confirm",
+    "key": 3506402
+  }
+]
