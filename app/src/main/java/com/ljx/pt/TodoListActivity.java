@@ -37,8 +37,7 @@ public class TodoListActivity extends AppCompatActivity implements TodoAdapter.O
  rvTodo = findViewById(R.id.rv_todo);
  rvTodo.setLayoutManager(new LinearLayoutManager(this));
  rvTodo.setClipToPadding(false);
- int toolbarH = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 160,
-     getResources().getDisplayMetrics());
+ int toolbarH = getSupportActionBar() != null ? getSupportActionBar().getHeight() : (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 56, getResources().getDisplayMetrics());
  rvTodo.setPadding(0, toolbarH, 0, 0);
  adapter = new TodoAdapter();
  adapter.setOnItemListener(this);
@@ -60,9 +59,17 @@ public class TodoListActivity extends AppCompatActivity implements TodoAdapter.O
 
  private void loadTodos() {
  new Thread(() -> {
+ seedIfEmpty();
  List<Todo> list = dbHelper.queryAll();
  runOnUiThread(() -> adapter.setTodos(list));
  }).start();
+ }
+
+ private void seedIfEmpty() {
+ if (dbHelper.queryAll().isEmpty()) {
+ Todo t1 = new Todo(); t1.setTitle("学习Android开发"); t1.setContent("完成实训报告和课程设计报告"); dbHelper.insert(t1);
+ Todo t2 = new Todo(); t2.setTitle("提交项目代码"); t2.setContent("确保所有功能正常运行"); dbHelper.insert(t2);
+ }
  }
 
  @Override

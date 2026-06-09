@@ -22,11 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".WelcomeActivity" />
-        <activity android:name=".TodoListActivity" />
-        <activity android:name=".TodoEditActivity" />
-        <activity android:name=".TodoDetailActivity" />
+        <activity android:name=".RegisterActivity" android:exported="true" />
+        <activity android:name=".WelcomeActivity" android:exported="true" />
+        <activity android:name=".TodoListActivity" android:exported="true" />
+        <activity android:name=".TodoEditActivity" android:exported="true" />
+        <activity android:name=".TodoDetailActivity" android:exported="true" />
     </application>
 
 </manifest>
