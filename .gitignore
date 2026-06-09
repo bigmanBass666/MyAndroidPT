@@ -69,9 +69,9 @@ bugreport-*.zip
 .settings/
 .vscode/
 
-# Keystore
-*.jks
-*.keystore
+# Gradle wrappers
+gradlew
+gradlew.bat
 
-# Crashlytics
-com_crashlytics_export_strings.xml
+# Material scripts (not project code)
+materials/1_practical_trainning/scripts/
