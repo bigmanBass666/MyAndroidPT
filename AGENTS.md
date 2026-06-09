@@ -77,7 +77,15 @@ app/src/main/java/com/ljx/pt/
 
 ## Git 提交规范
 
-每个独立的修改（一个布局文件、一个 Activity 方法、一个资源文件）改完立即提交，**不要攒到最后统一提交**。永远保持一个可回滚的干净状态——Build 失败时能通过 `git revert` 恢复到上一个提交点，而不是从零重来。
+原子提交：每个 commit 只做一件事，改完立即提交，不要攒到最后。
+
+| 规则 | 说明 |
+|------|------|
+| 单一职责 | 一个 commit 只包含一个逻辑改动（一个布局修复、一个方法修改、一个资源变更） |
+| 可编译 | 每个 commit 之后 `gradlew assembleDebug` 必须能通过 |
+| 信息可定位 | 格式：`fix:` / `feat:` / `refactor:` + 一句话描述改动内容 |
+
+不要提交"修复了一些问题""调整了布局"这类打包提交。每个 commit 都必须能单独 `revert` 而不破坏其他功能。
 
 ## Emulator & Device Operations
 
