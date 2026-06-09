@@ -1,0 +1,345 @@
+=== img_01.png ===
+Navicat「新建连接」UI 截图
+- 连接名：mysql
+- 主机：localhost
+- 端口：3306
+- 用户名：root
+- 密码：已掩码（6个点）
+- 勾选"保存密码"
+
+=== img_02.png ===
+Navicat「新建数据库」UI 截图
+- 数据库名：androidPT
+- 字符集：utf8
+- 排序规则：空（默认）
+
+=== img_03.png ===
+Navicat 设计 userinfo 表结构的截图
+- id：int，长度11，非空✓，主键（钥匙图标标注 1），"自动递增"勾选✓红框标注
+- name：varchar，长度20，可为空□
+- psw：varchar，长度20，可为空□
+- 底部红框标注"默认："下拉框
+
+=== img_04.png ===
+build.gradle.kts dependencies 块代码截图（部分）
+
+关键代码：
+```gradle
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation("mysql:mysql-connector-java:5.1.47")  // 红框标注
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
+```
+
+关键差异：
+- MySQL 版本：5.1.47（非 5.1.49）—— 红框明确标注
+- Java 版本未在此图显示，但 JDBC 驱动版本是重点
+
+=== img_05.png ===
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ljx.pt1">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="pt1"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AndroidPT2">
+
+        <activity android:name=".RegisterActivity">
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+=== img_06.png ===
+Android Studio 界面截图，显示：
+- 顶部选项卡：chapter1 | mysqltest | src | main | java | com.example.mysqltest | dbunit | MainActivity
+- 工程结构（左侧）：
+  - Android > manifests > AndroidManifest.xml
+  - com.example.mysqltest > bean, dao, dbunit, MainActivity
+  - com.example.mysqltest (androidTest), com.example.mysqltest (test)
+  - res > pt1
+  - Gradle Scripts (多个 build.gradle)
+- 代码编辑区：jdbcHelper.java — 包含 JDBC 连接工具类代码：
+  - URL: jdbc:mysql://172.18.68.63:3306/androidpt?useSSL=false
+  - 用户名: root, 密码: 123456
+  - getConn() 方法连接 MySQL
+- Logcat（底部）显示有序广播接收器日志：
+  2025-04-28: MyOrderedBroadcastReceiver1.onReceive → 获取广播事件 ACTION_MY_CUSTOM_ACTION3
+  广播接收器收到信息：Hello, Broadcast1!
+  MyOrderedBroadcastReceiver2.onReceive → Hello, Broadcast2!
+  MyOrderedBroadcastReceiver3.onReceive → Hello, OrderedBroadcast!
+
+=== img_07.png ===
+Java 源代码截图 — JdbcHelper 类
+- 中文注释说明 MySQL 数据库的 URL 包含主机名、端口号和数据库名称
+- static String url = "jdbc:mysql://192.168.1.18:3306/androidPT?useSSL=false" （红框标注）
+- static String name = "root"
+- static String psw = "123456"
+- public static Connection getConn() 方法：
+  - Class.forName("com.mysql.jdbc.Driver") 加载 MySQL JDBC 驱动
+  - DriverManager.getConnection(url, name, psw) 建立连接
+  - catch 块捕获 ClassNotFoundException | SQLException，e.printStackTrace()
+
+=== img_08.png ===
+Navicat「新建连接」UI 截图
+- 连接名称：mysql
+- 主机：192.168.1.18 （红框标注）
+- 端口：3306
+- 用户名：root
+- 密码：已掩码（6个点），勾选"保存密码"
+- 底部按钮：「测试连接」（红框标注）、URI...、「上一步」、「确定」
+
+
+=== img_09.png ===
+Windows 开始菜单截图，MySQL 文件夹展开
+- MySQL 5.7 Command Line Client（红框高亮选中）
+- MySQL 5.7 Command Line Client...
+- MySQL Installer - Community
+
+=== img_10.png ===
+MySQL 5.7 Command Line Client 命令行窗口
+已执行的 SQL 命令：
+- GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456' WITH GRANT OPTION;
+  Query OK, 0 rows affected, 1 warning (0.00 sec)
+- FLUSH PRIVILEGES;
+  Query OK, 0 rows affected (0.00 sec)
+
+=== img_11.png ===
+package com.lrq.pt1.bean;
+
+public class User {
+    private int id;
+    private String name;
+    private String password;
+
+    public User(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
+    public User() {
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}
+
+=== img_12.png ===
+package com.example.mysqltest.dao;
+
+import ...;
+
+public class UserDao {
+    // 测试数据库连接的用
+    public void test() {
+        try {
+            Connection connection = JdbcHelper.getConn();
+            String sql = "select * from userinfo";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int userId = resultSet.getInt(columnLabel: "id");
+                String usr = resultSet.getString(columnLabel: "name");
+                String pwd = resultSet.getString(columnLabel: "psw");
+                // 处理每一行数据，您可以根据需求进行相应的操作
+                System.out.println("user: " + userId);
+                System.out.println("username: " + usr);
+                System.out.println("password: " + pwd);
+                // 在日志中输出
+                Log.i(tag: "jdbc", msg: "user: " + userId);
+                Log.i(tag: "jdbc", msg: "username: " + usr);
+                Log.i(tag: "jdbc", msg: "password: " + pwd);
+            }
+            resultSet.close();
+            preparedStatement.close();
+        } catch (Exception e) {
+            System.out.println(e);
+            Log.e(tag: "jdbc", e.getMessage());
+        }
+    }
+}
+
+=== img_13.png ===
+Navicat Premium Lite 界面截图 — 显示 userinfo 表数据
+- 左侧导航树：1.18 > androidpt > 表 > userinfo
+- 右上方选项卡：userinfo@androidpt (1.18) - 表 | 备份 | 自动运行 | 模型 | BI
+- 工具栏：连接 ▼ | 新建库 | 表 | 视图 | 对象 | 用户 | 其它 ▼ | 查询 | 备份 | 自动运行 | 模型 | BI
+- 查询编辑器显示 SQL：SELECT * FROM ndroidpt.userinfo LIMIT 0,1000
+- 表结构（设计视图）：
+  - id：# int(11) — 非空 ✓，主键（钥匙图标 1），默认值 --，注释 --
+  - name：ᵅc varchar(20)
+  - psw：ᵅc varchar(20)
+- 数据行（1条）：
+  - 第1行：id=1, name=aaa, psw=123456（高亮选中，蓝色行）
+- 状态栏：第 1 条记录（共 1 条）于第 1 页；上次刷新时间: 13m
+- SQL 编辑器底部：SELECT * FROM ndroidpt.userinfo LIMIT 0,1000
+
+=== img_14.png ===
+Android Studio 界面截图 — 显示 activity_main.xml 布局文件（XML 代码）
+- 顶部选项卡：chapter1 | mysqltest | src | main | res | layout > activity_main.xml | AndroidManifest.xml | gradle.properties
+- 工程结构（左侧 Project 面板）：
+  - Android > manifests > AndroidManifest.xml
+  - res > drawable, layout, mipmap, values, values-night
+  - com.example.mysqltest (data binding generated), com.example.mysqltest (generated)
+  - mysqltest > manifests > AndroidManifest.xml, java, java (generated), res
+  - bean > UserDao.java, JdbcHelper.java, MainActivity
+  - 编辑区选项卡：mysqltest\MainActivity.java | UserDao.java | JdbcHelper.java | RegisterActivity.java | pt1\MainActivity.java
+- XML 代码（activity_main.xml）— activity_main.xml 标签页：
+  `xml
+  <?xml version="1.0" encoding="utf-8"?>
+  <androidx.constraintlayout.widget.ConstraintLayout
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      tools:context=".MainActivity">
+
+      <Button
+          android:id="@+id/bt_select"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="158dp"
+          android:layout_marginTop="254dp"
+          android:layout_marginEnd="129dp"
+          android:layout_marginBottom="429dp"
+          android:text="测试查询数据"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.8"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+  ``n- 第14行（高亮行号14）：android:layout_marginEnd="129dp" 被选中
+- Logcat（底部）输出：
+  - I/ConfigStore: android:hardware:configstore:V1_0:ISurfaceFlingerConfigs::hasWideColorDisplay retrieved: 0
+  - I/ConfigStore: android:hardware:configstore:V1_0:ISurfaceFlingerConfigs::hasHDRDisplay retrieved: 0
+  - D/OpenGLRenderer: Initialized EGL, version 1.4
+  - D/EGL_adreno: CreateContext rcMajorVersion:3, minorVersion:0
+- Build 成功：Launch succeeded (2 minutes ago)
+
+=== img_17.png ===
+Logcat 日志输出截图，显示 Android Logcat 面板：
+
+```
+2025-04-29 08:23:07.331  4019-5172/com.example.mysqltest I/jdbc: user: 1
+2025-04-29 08:23:07.331  4019-5172/com.example.mysqltest I/jdbc: username: lrq
+2025-04-29 08:23:07.331  4019-5172/com.example.mysqltest I/jdbc: password: 123456
+```
+
+关键信息：
+- 时间戳：2025-04-29 08:23:07.331
+- PID/TID：4019-5172
+- 包名：com.example.mysqltest
+- Tag：jdbc（红框标注的 Logcat 过滤标签）
+- 日志级别：I (Info)
+- 查询结果：user=1, username=lrq, password=123456
+- 底部状态栏提示：unexpected packet was received before the handshake (15 minutes ago)
+- 面板底部 Tab：Run | TODO | Problems | Logcat（红框标注当前选中）| Profiler | App Inspection | Terminal | Build
+
+=== img_15.png ===
+package com.example.mysqltest;
+
+public class MainActivity extends AppCompatActivity {
+    private Button bt_query;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        bt_query = findViewById(R.id.bt_select);
+        bt_query.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        UserDao userDao = new UserDao();
+                        userDao.test();
+                    }
+                }).start();
+            }
+        });
+    }
+}
+
+// Run Tab:
+// D/OpenGLRenderer: Swap behavior 1
+// I/System.out: user: 1
+// I/System.out: username: lrq
+// I/System.out: password: 123456
+
+=== img_16.png ===
+package com.example.mysqltest.dao;
+
+public class UserDao {
+    //测试数据库连接的
+    public void test() {
+        try {
+            Connection connection = JdbcHelper.getConn();
+            String sql = "select * from userinfo";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int userId = resultSet.getInt("id");
+                String user = resultSet.getString(columnLabel: "name");
+                String pwd = resultSet.getString(columnLabel: "psw");
+                // 处理每一行数据，您可以根据需求进行相应的操作
+                System.out.println("user: " + userId);
+                System.out.println("username: " + usr);
+                System.out.println("password: " + pwd);
+                //在日志中输出
+                Log.i(tag: "jdbc", msg: "user: " + userId);
+                Log.i(tag: "jdbc", msg: "username: " + usr);
+                Log.i(tag: "jdbc", msg: "password: " + pvd);
+            }
+            resultSet.close();
+            preparedStatement.close();
+        } catch (Exception e) {
+            System.out.println(e);
+            Log.e(tag: "jdbc", "e.getMessage()");
+        }
+    }
+}
+
+// Run Tab:
+// I/System.out: user: 1
+// I/System.out: username: lrq
+// I/System.out: password: 123456
+// I/jdbc: user: 1
+// I/jdbc: username: lrq
+// I/jdbc: password: 123456
+

@@ -1,0 +1,180 @@
+=== img_01.png ===
+实训6 登录页 UI 示例截图
+- 账号栏预填 "lrq"
+- 密码栏显示掩码点
+- "记住密码" CheckBox 已勾选（绿色对勾）
+- "自动登录" CheckBox 已勾选（红框标注，表示重点观察）
+- 紫色"登录"按钮，"还没有账号？"绿色链接
+
+=== img_02.png ===
+CheckBox 联动逻辑代码截图
+
+关键代码（教材写法，简洁易懂）：
+```java
+// (1)当勾选"自动登录"时，会自动勾选"记住密码"
+cb_auto_login.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if(isChecked) cb_pass_remember.setChecked(true);
+    }
+});
+
+// (2)当取消"记住密码"时，会自动取消"自动登录"
+cb_pass_remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if(!isChecked) cb_auto_login.setChecked(false);
+    }
+});
+```
+
+命名规范确认：
+- CheckBox 变量：cb_auto_login / cb_pass_remember（非 cb_remember）
+- 没有在 isChecked 分支里嵌套 setCheckedChangeListener 来防止死循环的保护逻辑
+
+=== img_03.png ===
+登录成功后 SharedPreferences 完整写入代码（含 auto-login 嵌套逻辑）
+
+关键代码：
+```java
+public void onLoginSuccess(String name, String psw){
+    // 勾选记住密码
+    if(cb_pass_remember.isChecked()){
+        SharedPreferences spf = getSharedPreferences("spfRecord", MODE_PRIVATE);
+        SharedPreferences.Editor editor = spf.edit();
+        editor.putString("userName", name);
+        editor.putString("password", psw);
+        editor.putBoolean("isRemember", true);
+
+        // 勾选自动登录（嵌套在记住密码块内）
+        if(cb_auto_login.isChecked()){
+            editor.putBoolean("isAutoLogin", true);
+        }else{
+            editor.putBoolean("isAutoLogin", false);
+        }
+        editor.apply();
+    }else{  // 没有勾选记住密码
+        SharedPreferences spf = getSharedPreferences("spfRecord", MODE_PRIVATE);
+        SharedPreferences.Editor editor = spf.edit();
+        editor.putBoolean("isRemember", false);
+        editor.apply();
+    }
+
+    // 跳到欢迎页面
+    Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
+    intent.putExtra("userName", name);
+    startActivity(intent);
+    MainActivity.this.finish();
+}
+```
+
+命名规范确认：
+- 新增 Key："isAutoLogin"（boolean）
+- auto-login 判断嵌套在 isRemember=true 块内，非独立层级
+- 方法名：onLoginSuccess() 或直接写在 onClick 里
+
+关键代码（教材写法，简洁易懂）：
+```java
+// (1)当勾选"自动登录"时，会自动勾选"记住密码"
+cb_auto_login.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if(isChecked) cb_pass_remember.setChecked(true);
+    }
+});
+
+// (2)当取消"记住密码"时，会自动取消"自动登录"
+cb_pass_remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if(!isChecked) cb_auto_login.setChecked(false);
+    }
+});
+```
+
+命名规范确认：
+- CheckBox 变量：cb_auto_login / cb_pass_remember（非 cb_remember）
+- 没有在 isChecked 分支里嵌套 setCheckedChangeListener 来防止死循环的保护逻辑
+
+=== img_04.png ===
+Java代码片段（Android SharedPreferences）：
+- private void initData() { ... }
+- SharedPreferences spf = getSharedPreferences("spfRecord", MODE_PRIVATE);
+- Boolean isRemember = spf.getBoolean("isRemember", false);
+- Boolean isAutoLogin = spf.getBoolean("isAutoLogin", false);
+- String userName = spf.getString("userName", "");
+- String password = spf.getString("password", "");
+- if(isAutoLogin) { Intent intent = new Intent(MainActivity.this, WelcomeActivity.class); intent.putExtra("userName", userName); startActivity(intent); MainActivity.this.finish(); }
+- if(isRemember) { ... }
+
+=== img_05.png ===
+Java代码片段（Android 退出登录）：
+- public void logout(View view) {
+- 注释：退出登录时，要将登录的状态设置为false
+- SharedPreferences spf = getSharedPreferences("spfRecord", MODE_PRIVATE);
+- SharedPreferences.Editor editor = spf.edit();
+- editor.putBoolean("isAutoLogin", false);
+- editor.apply();
+- Intent intent = new Intent(this, MainActivity.class);
+- startActivity(intent);
+- this.finish();
+- }
+
+=== img_06.png ===
+User ruser = new User(name, psw);
+int rows = userDao.insertUser(ruser);
+if (rows > 0) {
+    Toast.makeText(context: RegisterActivity.this, text: "注册成功", Toast.LENGTH_SHORT).show();
+    Log.i(tag: "MSG", msg: "注册成功");
+    // 注册成功后自动回到登录页面
+    Intent intent =new Intent();
+    Bundle bundle=new Bundle();//以打包的形式来回传数据
+    bundle.putString("userName",name);
+    bundle.putString("password",psw);
+    intent.putExtras(bundle);
+    setResult(1,intent); //其中1为向上一个Activity返回处理结果
+    RegisterActivity.this.finish();
+} else {
+    Toast.makeText(context: RegisterActivity.this, text: "注册失败", Toast.LENGTH_SHORT).show();
+    Log.i(tag: "MSG", msg: "注册失败");
+}
+=== img_07.png ===
+tv_register.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(packageContext: MainActivity.this, RegisterActivity.class);
+        // startActivity(intent);
+
+//数据的回传
+startActivityForResult(intent,1);//其中的1为请求码，用于判断数据的来源。
+}
+});
+
+=== img_08.png ===
+Java 代码截图 — onActivityResult 方法（数据回传后设置登录页面）
+
+关键代码：
+```java
+@Override
+protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if(requestCode==1&& resultCode==1&& data!=null){
+        Bundle bundle = data.getExtras();
+        String userName = bundle.getString("userName","");
+        String password = bundle.getString("password", "");
+        etAccount.setText(userName);
+        etPassword.setText(password);
+    }
+}
+```
+
+关键信息：
+- 顶部注释：//数据回传后，设置登录页面
+- 请求码判断：requestCode==1 && resultCode==1（红框标注）
+- data!=null 非空校验
+- Bundle 提取 userName 和 password
+- etAccount / etPassword 为 EditText 控件（设置登录页面的文本）
+- 方法名：onActivityResult
+- void 返回类型（红框标注）
+- 包名：com.example.mysqltest（红框标注顶部标签）
+(End of file - total 153 lines)

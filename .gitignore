@@ -1,0 +1,77 @@
+# Android
+*.iml
+.gradle
+/local.properties
+.idea/caches
+.idea/libraries
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Build outputs
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+
+# Keystore
+*.jks
+*.keystore
+
+# Crashlytics
+com_crashlytics_export_strings.xml
+crashlytics-build.properties
+
+# Proguard
+proguard-project.txt
+
+# macOS
+.DS_Store
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Temporary files
+*.tmp
+*.tmp_img
+*.bak*
+*.log
+
+# Images
+*.png
+*.jpg
+*.jpeg
+*.webp
+
+# Android CLI
+bugreport-*.zip
+
+# Claude memory
+.omc/
+.claude/scheduled_tasks.json
+.claude/scheduled_tasks.lock
+
+# IDE
+.idea/
+.project
+.settings/
+.vscode/
+
+# Keystore
+*.jks
+*.keystore
+
+# Crashlytics
+com_crashlytics_export_strings.xml
