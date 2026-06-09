@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.ljx.pt.R;
 import com.ljx.pt.bean.Todo;
 import com.ljx.pt.dbunit.TodoDBHelper;
@@ -20,6 +21,7 @@ public class TodoEditActivity extends AppCompatActivity {
     private EditText etContent;
     private Button btnCancel;
     private Button btnSave;
+    private MaterialToolbar toolbar;
 
     private TodoDBHelper dbHelper;
     private int todoId = -1;
@@ -29,6 +31,9 @@ public class TodoEditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_edit);
+
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(v -> finish());
 
         etTitle = findViewById(R.id.et_title);
         etContent = findViewById(R.id.et_content);
@@ -41,6 +46,7 @@ public class TodoEditActivity extends AppCompatActivity {
         isEditMode = todoId != -1;
 
         if (isEditMode) {
+            toolbar.setTitle("编辑待办");
             loadTodo();
         }
 
