@@ -45,7 +45,8 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
             if (!rbAgree.isChecked()) {
-                rbAgree.setChecked(true);
+                Toast.makeText(this, "请先同意用户协议", Toast.LENGTH_SHORT).show();
+                return;
             }
 
             new Thread(() -> {
