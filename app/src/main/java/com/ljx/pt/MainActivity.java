@@ -3,15 +3,20 @@ package com.ljx.pt;
 import com.ljx.pt.bean.User;
 import com.ljx.pt.dao.UserDao;
 
-import android.content.Intent;
+import android.widget.Toast;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,9 +61,9 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                     if (user == null) {
                         Toast.makeText(MainActivity.this, "用户不存在", Toast.LENGTH_SHORT).show();
                     } else if (!user.getPsw().equals(psw)) {
-                        Toast.makeText(MainActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "密码错误", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(MainActivity.this, R.string.toast_login_success, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.toast_login_success, Toast.LENGTH_SHORT).show();
                         saveLoginState(name, psw);
                         Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
                         intent.putExtra("userName", name);
@@ -70,17 +75,17 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         });
 
         registerLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                        String userName = result.getData().getStringExtra("userName");
-                        String password = result.getData().getStringExtra("password");
-                        if (userName != null && password != null) {
-                            etAccount.setText(userName);
-                            etPassword.setText(password);
-                        }
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    String userName = result.getData().getStringExtra("userName");
+                    String password = result.getData().getStringExtra("password");
+                    if (userName != null && password != null) {
+                        etAccount.setText(userName);
+                        etPassword.setText(password);
                     }
                 }
+            }
         );
 
         tvRegister.setOnClickListener(v -> {
@@ -113,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         String userName = spf.getString("userName", "");
         String password = spf.getString("password", "");
         if (isAutoLogin && !userName.isEmpty() && !password.isEmpty()) {
-            performLogin(userName, password);
+            performAutoLogin(userName, password);
         } else if (isRemember) {
             etAccount.setText(userName);
             etPassword.setText(password);
@@ -121,12 +126,13 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         }
     }
 
-    private void performLogin(String name, String psw) {
+    private void performAutoLogin(String name, String psw) {
         new Thread(() -> {
             UserDao dao = new UserDao(MainActivity.this);
             User user = dao.findByName(name);
             runOnUiThread(() -> {
                 if (user != null && user.getPsw().equals(psw)) {
+                    Toast.makeText(this, R.string.toast_login_success, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
                     intent.putExtra("userName", name);
                     startActivity(intent);

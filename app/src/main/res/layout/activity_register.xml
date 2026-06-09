@@ -1,89 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/background_light_blue"
     android:fitsSystemWindows="true"
-    tools:context=".RegisterActivity">
+    android:padding="16dp">
 
-    <!-- 账号行 -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/green_700"
+        android:title="注册"
+        android:titleTextColor="@color/white"
+        android:navigationIcon="@android:drawable/ic_menu_revert"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="20dp"
-        android:gravity="center_vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="24dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_account"
-            android:textSize="25sp" />
-
-        <EditText
-            android:id="@+id/et_account"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_account"
-            android:layout_marginLeft="10dp"
-            style="@style/MyEditStyle"
-            android:inputType="text" />
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="16dp">
 
-    <!-- 密码行 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:gravity="center_vertical">
+            <TextView
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:text="@string/label_account"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary"
+                android:gravity="end"
+                android:layout_marginEnd="8dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_password"
-            android:textSize="25sp" />
+            <EditText
+                android:id="@+id/et_account"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="@string/hint_account"
+                style="@style/MyEditStyle"
+                android:inputType="text" />
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/et_password"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_password"
-            android:layout_marginLeft="10dp"
-            style="@style/MyEditStyle"
-            android:inputType="numberPassword" />
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="16dp">
 
-    <!-- 确认密码行 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:gravity="center_vertical">
+            <TextView
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:text="@string/label_password"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary"
+                android:gravity="end"
+                android:layout_marginEnd="8dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_password_confirm"
-            android:textSize="25sp" />
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="@string/hint_password"
+                style="@style/MyEditStyle"
+                android:inputType="numberPassword" />
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/et_password_confirm"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_password_confirm"
-            android:layout_marginLeft="10dp"
-            style="@style/MyEditStyle"
-            android:inputType="numberPassword" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:text="@string/label_password_confirm"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary"
+                android:gravity="end"
+                android:layout_marginEnd="8dp" />
+
+            <EditText
+                android:id="@+id/et_password_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="@string/hint_password_confirm"
+                style="@style/MyEditStyle"
+                android:inputType="numberPassword" />
+        </LinearLayout>
     </LinearLayout>
 
     <!-- 注册按钮 -->
@@ -92,16 +105,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_register"
-        style="@style/MyBtnStyle" />
+        style="@style/MyBtnStyle"
+        android:layout_marginTop="24dp"
+        android:layout_gravity="bottom" />
 
-    <!-- 同意协议 -->
     <RadioButton
         android:id="@+id/rb_agree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginTop="5dp"
+        android:layout_gravity="bottom|start"
+        android:layout_marginBottom="80dp"
+        android:layout_marginStart="16dp"
         android:text="@string/rb_agree_protocol"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/green_700"
+        android:textSize="14sp" />
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

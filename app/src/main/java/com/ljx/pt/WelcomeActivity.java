@@ -21,7 +21,6 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        getSupportActionBar().setTitle("欢迎");
 
         userName = getIntent().getStringExtra("userName");
 
@@ -29,7 +28,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         btnLogout = findViewById(R.id.btn_logout);
         btnTodoList = findViewById(R.id.btn_todo_list);
 
-        tvWelcome.setText("欢迎回来，" + (userName != null ? userName : "用户"));
+        tvWelcome.setText(getString(R.string.welcome_back, userName != null ? userName : "用户"));
         btnLogout.setOnClickListener(this);
         btnTodoList.setOnClickListener(this);
     }

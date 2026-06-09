@@ -1,8 +1,9 @@
-﻿<resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
     <string name="app_name">MyAndroidPT</string>
-    <string name="label_account">账号：</string>
-    <string name="label_password">密码：</string>
-    <string name="label_password_confirm">确认密码：</string>
+    <string name="label_account">账号</string>
+    <string name="label_password">密码</string>
+    <string name="label_password_confirm">确认密码</string>
     <string name="hint_account">请输入用户名或手机号</string>
     <string name="hint_password">请输入密码</string>
     <string name="hint_password_confirm">再次输入密码</string>
@@ -10,13 +11,35 @@
     <string name="cb_auto_login">自动登录</string>
     <string name="btn_login">登录</string>
     <string name="btn_register">注册</string>
-    <string name="tv_register_prompt">还没有账号？</string>
+    <string name="tv_register_prompt">还没有账号？立即注册</string>
     <string name="rb_agree_protocol">同意用户协议</string>
     <string name="toast_login_success">登录成功</string>
     <string name="toast_register_success">注册成功</string>
-<string name="btn_logout">退出登录</string>
+    <string name="btn_logout">退出登录</string>
+    <string name="btn_todo_list">进入待办列表</string>
+    <string name="fab_add_todo">新增待办</string>
 
-    <string name="btn_todo_list">待办列表</string>
-<string name="fab_add_todo">新增待办</string>
+    <!-- 表单标签（Toolbar 标题度用，区分于对话框用） -->
+    <string name="label_account_form">账号</string>
+    <string name="label_password_form">密码</string>
+    <string name="label_password_confirm_form">确认</string>
+
+    <!-- 操作按钮文案 -->
+    <string name="btn_cancel">取消</string>
+    <string name="btn_save">保存</string>
+    <string name="btn_edit">编辑</string>
+    <string name="btn_delete">删除</string>
+    <string name="btn_detail_delete">删除</string>
+
+    <!-- 欢迎页 -->
+    <string name="welcome_back">欢迎回来，%1$s</string>
+    <string name="welcome_hint">管理你的每一天</string>
+
+    <!-- 反馈提示 -->
+    <string name="toast_saved">已保存</string>
+    <string name="toast_deleted">已删除</string>
+
+    <!-- 删除确认对话框 -->
+    <string name="dialog_delete_title">确认删除</string>
+    <string name="dialog_delete_message">确定要删除「%1$s」吗？</string>
 </resources>
-

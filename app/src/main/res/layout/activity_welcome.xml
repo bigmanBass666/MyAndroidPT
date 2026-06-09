@@ -1,41 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/background_light_blue"
     android:fitsSystemWindows="true"
-    android:gravity="center_horizontal"
-    tools:context=".WelcomeActivity"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".WelcomeActivity">
 
-    <TextView
-        android:id="@+id/tv_welcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textColor="@color/colorPrimary"
-        android:layout_marginTop="80dp" />
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/green_700"
+        android:title="欢迎"
+        android:titleTextColor="@color/white" />
 
-    <Button
-        android:id="@+id/btn_todo_list"
-        style="@style/MyBtnStyle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="待办列表"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="20dp" />
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp"
+        android:gravity="center_horizontal">
 
-    <Button
-        android:id="@+id/btn_logout"
-        style="@style/MyBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_logout"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="16dp" />
+        <TextView
+            android:id="@+id/tv_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_back"
+            android:textSize="22sp"
+            android:textColor="@color/green_700"
+            android:textStyle="bold"
+            android:layout_marginBottom="32dp" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btn_todo_list"
+            style="@style/MyBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_todo_list" />
+
+        <Button
+            android:id="@+id/btn_logout"
+            style="@style/MyBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_logout"
+            android:layout_marginTop="12dp" />
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

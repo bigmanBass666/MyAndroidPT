@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -44,8 +45,8 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
             if (!rbAgree.isChecked()) {
- rbAgree.setChecked(true);
-}
+                rbAgree.setChecked(true);
+            }
 
             new Thread(() -> {
                 UserDao dao = new UserDao(RegisterActivity.this);

@@ -8,84 +8,81 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ljx.pt.R;
 import com.ljx.pt.bean.Todo;
 import com.ljx.pt.dbunit.TodoDBHelper;
 
-/** 待办编辑 Activity，从列表 FAB 新增（EXTRA_TODO_ID=-1）或从列表项点击编辑（携带 id） */
 public class TodoEditActivity extends AppCompatActivity {
 
     public static final String EXTRA_TODO_ID = "extra_todo_id";
-    private static final int MODE_NEW = -1;
-    private EditText etTitle, etContent;
-    private Button btnSave, btnCancel;
+
+    private EditText etTitle;
+    private EditText etContent;
+    private Button btnCancel;
+    private Button btnSave;
+
     private TodoDBHelper dbHelper;
     private int todoId = -1;
+    private boolean isEditMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_edit);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         etTitle = findViewById(R.id.et_title);
         etContent = findViewById(R.id.et_content);
-        btnSave = findViewById(R.id.btn_save);
         btnCancel = findViewById(R.id.btn_cancel);
+        btnSave = findViewById(R.id.btn_save);
 
         dbHelper = new TodoDBHelper(this);
 
         todoId = getIntent().getIntExtra(EXTRA_TODO_ID, -1);
-        if (todoId != -1) {
-            getSupportActionBar().setTitle("编辑待办");
-            loadTodo(todoId);
-        } else {
-            getSupportActionBar().setTitle("新增待办");
+        isEditMode = todoId != -1;
+
+        if (isEditMode) {
+            loadTodo();
         }
 
-        btnSave.setOnClickListener(v -> saveTodo());
         btnCancel.setOnClickListener(v -> finish());
+
+        btnSave.setOnClickListener(v -> {
+            String title = etTitle.getText().toString().trim();
+            String content = etContent.getText().toString().trim();
+            if (title.isEmpty()) {
+                Toast.makeText(this, "标题不能为空", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            new Thread(() -> {
+                Todo todo = new Todo();
+                todo.setTitle(title);
+                todo.setContent(content);
+                if (isEditMode) {
+                    todo.setId(todoId);
+                    dbHelper.update(todo);
+                } else {
+                    dbHelper.insert(todo);
+                }
+                runOnUiThread(() -> {
+                    Toast.makeText(this, R.string.toast_saved, Toast.LENGTH_SHORT).show();
+                    setResult(RESULT_OK);
+                    finish();
+                });
+            }).start();
+        });
     }
 
-    private void loadTodo(int id) {
+    private void loadTodo() {
         new Thread(() -> {
-            Todo todo = dbHelper.queryById(id);
+            Todo todo = dbHelper.queryById(todoId);
             runOnUiThread(() -> {
                 if (todo != null) {
                     etTitle.setText(todo.getTitle());
                     etContent.setText(todo.getContent());
+                } else {
+                    Toast.makeText(this, "加载失败", Toast.LENGTH_SHORT).show();
                 }
             });
         }).start();
-    }
-
-    private void saveTodo() {
-        String title = etTitle.getText().toString().trim();
-        if (title.isEmpty()) {
-            Toast.makeText(this, "标题不能为空", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String content = etContent.getText().toString().trim();
-        new Thread(() -> {
-            if (todoId != -1) {
-                Todo todo = new Todo(title, content);
-                todo.setId(todoId);
-                dbHelper.update(todo);
-            } else {
-                Todo todo = new Todo(title, content);
-                dbHelper.insert(todo);
-            }
-            runOnUiThread(() -> {
-                setResult(RESULT_OK);
-                finish();
-            });
-        }).start();
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
     }
 }
