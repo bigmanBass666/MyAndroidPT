@@ -29,9 +29,9 @@
         <EditText
             android:id="@+id/et_account"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:hint="@string/hint_account"
             android:layout_marginLeft="10dp"
+            android:layout_height="50dp"
             style="@style/MyEditStyle"
             android:inputType="text" />
     </LinearLayout>
@@ -57,9 +57,9 @@
         <EditText
             android:id="@+id/et_password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:hint="@string/hint_password"
             android:layout_marginLeft="10dp"
+            android:layout_height="50dp"
             style="@style/MyEditStyle"
             android:inputType="numberPassword" />
     </LinearLayout>
