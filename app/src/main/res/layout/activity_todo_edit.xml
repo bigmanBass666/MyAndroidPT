@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_light_blue"
@@ -22,7 +23,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="标题（必填）"
-        android:layout_marginTop="16dp"
         android:inputType="text"
         style="@style/MyEditStyle" />
 
@@ -69,4 +69,4 @@
             android:layout_marginStart="16dp" />
     </LinearLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>
