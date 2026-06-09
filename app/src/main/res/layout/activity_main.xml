@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_light_blue"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     android:padding="16dp"
     tools:context=".MainActivity">
 
@@ -20,61 +21,61 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
         android:gravity="center_vertical"
-        android:layout_marginTop="24dp">
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="72dp"
             android:layout_height="wrap_content"
-            android:text="账号"
-            android:textSize="14sp"
-            android:textColor="@color/text_secondary"
             android:gravity="end"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginEnd="8dp"
+            android:text="账号"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/et_account"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="@string/hint_account"
-            style="@style/MyEditStyle"
-            android:inputType="text" />
+            android:inputType="text"
+            style="@style/MyEditStyle" />
     </LinearLayout>
 
     <!-- 密码行 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
         android:gravity="center_vertical"
-        android:layout_marginTop="16dp">
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="72dp"
             android:layout_height="wrap_content"
-            android:text="密码"
-            android:textSize="14sp"
-            android:textColor="@color/text_secondary"
             android:gravity="end"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginEnd="8dp"
+            android:text="密码"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="@string/hint_password"
-            style="@style/MyEditStyle"
-            android:inputType="numberPassword" />
+            android:inputType="numberPassword"
+            style="@style/MyEditStyle" />
     </LinearLayout>
 
     <!-- 复选框行 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
         android:gravity="center"
-        android:layout_marginTop="20dp">
+        android:orientation="horizontal">
 
         <CheckBox
             android:id="@+id/cb_pass_remember"
@@ -88,10 +89,10 @@
             android:id="@+id/cb_auto_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
             android:text="@string/cb_auto_login"
             android:textColor="@color/text_secondary"
-            android:textSize="14sp"
-            android:layout_marginStart="32dp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <!-- 登录按钮 -->
@@ -99,21 +100,19 @@
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:text="@string/btn_login"
-        style="@style/MyBtnStyle"
-        android:layout_marginTop="24dp" />
+        style="@style/MyBtnStyle" />
 
     <!-- 注册提示 -->
     <TextView
         android:id="@+id/tv_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tv_register_prompt"
-        android:textColor="@color/green_700"
-        android:clickable="true"
-        android:focusable="true"
         android:layout_gravity="end"
         android:layout_marginTop="12dp"
+        android:text="@string/tv_register_prompt"
+        android:textColor="@color/green_700"
         android:textSize="14sp" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

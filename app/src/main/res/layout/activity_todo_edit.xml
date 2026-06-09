@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_light_blue"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     android:padding="16dp">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/green_700"
-        android:title="编辑待办"
+        android:title="新增待办"
         android:titleTextColor="@color/white"
         android:navigationIcon="@android:drawable/ic_menu_revert"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="标题（必填）"
+        android:layout_marginTop="16dp"
         android:inputType="text"
         style="@style/MyEditStyle" />
 
