@@ -1,76 +1,72 @@
-/goal 6 个 Activity 界面视觉验证全部通过、代码层面遗留问题全部关闭、Debug APK 可成功构建。
+# MyAndroidPT — 当前目标
 
-约束：
-- 所有工作以 materials/ 中的实训教材和设计文档为北极星
-- 只修复布局/代码问题，不处理报告和视频
-- 代码规范遵守 AGENTS.md（线程模型、包结构、命名约定）
-- 不得修改功能逻辑，仅修复视觉和代码质量问题
+## 北极星
 
----
+项目根植于两份北极星纲要：
+- `materials/1_practical_trainning/index.md` — 6 段实训递进图（注册登录模块）
+- `materials/2_design/README.md` — 课程设计考核材料（简易待办应用）
 
-## 背景
+技术红线（不可偏离）：**Java 11 + Activity + SQLite**，无 Kotlin、无 Room、无 Jetpack Compose。
 
-项目处于"功能基本完成、视觉和代码质量待修"的阶段。上一阶段完成了两份报告和截图资产积累，但：
-- MainActivity 对齐修复从未在修复后重新截图验证
-- 6 个 Activity 的视觉验证未在本会话完成完整闭环
-- 6月9日代码审查发现 30 个问题尚未处理
+## 当前阶段：课程设计打磨
 
-## 先决条件
+### 评分维度与当前差距
 
-Debug APK 构建退出码为 0（`cd app && gradlew.bat assembleDebug`）
+| # | 提交物 | 格式 | 状态 |
+|---|--------|------|------|
+| 1 | 课程设计报告 | Markdown（`reports/课程设计报告.md`） | ⬜ |
+| 2 | 代码 | 直接在仓库中，无需打包 | ✅ |
 
-## 工作阶段
+### 评分维度与当前差距
 
-### 第一阶段：已知问题修复
+| 维度 | 满分 | 评分重点 | 当前状态 |
+|------|------|---------|---------|
+| 功能实现 | 50 | F1–F5 全部完整运行 | ✅ F1–F5 已实现 |
+| 界面设计 | 20 | 简洁直观、布局合理、Material 规范 | 🔄 需打磨 |
+| 代码质量 | 20 | 结构清晰、命名规范、注释充分 | 🔄 需自查 |
+| 文档撰写 | 10 | 7 章节完整（见 `03-report-template.md`） | ⬜ 待完成 |
 
-逐条修复以下列出类型的问题（不全重复 30 个，按类别处理）：
+### 功能验收清单（F1–F5）
 
-**布局/视觉类（需截图验证）**：
-- activity_main.xml 对齐问题修复 —— 账号/密码标签与输入框对齐
-- TodoAdapter 消息条宽度计算异常（62/113dp 固定值）
-- TodoListActivity RecyclerView 顶部 padding 硬编码
+- [x] **F1 创建** — FAB 或按钮入口，输入标题/内容，保存到 todo.db
+- [x] **F2 查看** — RecyclerView 列表展示全部待办；点击跳转详情页
+- [x] **F3 编辑** — 列表项可进入编辑页，修改后保存
+- [x] **F4 删除** — 长按列表项触发删除确认
+- [x] **F5 状态切换** — 已完成/未完成两种状态可切换
 
-**逻辑/运行时类**：
-- WelcomeActivity 用户名显示为 null（初始化时序问题）
-- 待办状态切换后的列表刷新时序
+### 用户模块验收清单（实训 1-6）
 
-### 第二阶段：6 个 Activity 截图验证
+- [x] 注册：输入用户名/密码/邮箱，判重+校验，成功反馈
+- [x] 登录：校验用户名+密码，成功跳欢迎页，失败有提示
+- [x] 记住密码：SharedPreferences("spfRecord") 持久化，下次自动回填
+- [x] 自动登录：启动时跳过登录页直达欢迎页
+- [x] CheckBox 联动：自动登录勾选→自动勾选记住密码；取消记住密码→自动取消自动登录
+- [x] 注册回填：注册成功回传账号密码到登录页
 
-使用 /android-cli skill 对每个 Activity 按以下流程截图：
+### 代码规范自查清单
 
-1. 构建并安装 Debug APK（如已安装则跳过安装，或使用 `android run` 启动）
-2. 用 `android screen capture` 截图
-3. 自动锁定应用前台：`adb shell monkey -p com.ljx.pt -c android.intent.category.LAUNCHER 1`
-4. 再次截图，确保为目标 Activity 界面
-5. 保存截图到 reports/screenshots/（覆盖旧截图或命名新版本）
-6. 逐项视觉检查：控件对齐、文字可读、按钮可点击、无重叠/截断
+- [ ] 包结构 `bean` / `dao` / `dbunit` / `adapter` 四包拆分
+- [ ] 类名 PascalCase，方法/变量 camelCase，资源 snake_case
+- [ ] 关键方法、关键 SQL 有注释
+- [ ] 数据库操作在子线程（`new Thread()`），UI 更新用 `runOnUiThread()`
+- [ ] 颜色集中在 `colors.xml`，尺寸用 `dp`/`sp`，无硬编码 `px`
+- [ ] 自定义样式复用（`MyBtnStyle` / `MyEditStyle`）
+- [ ] 所有 Activity 在 `AndroidManifest.xml` 中注册
 
-Activity 顺序：
-1. MainActivity（登录页）
-2. RegisterActivity（注册页）
-3. WelcomeActivity（欢迎页）
-4. TodoListActivity（待办列表，需确保 seedIfEmpty 有数据）
-5. TodoEditActivity（编辑页）
-6. TodoDetailActivity（详情页）
+### 报告 7 章节骨架（`materials/2_design/03-report-template.md`）
 
-### 第三阶段：功能验证
+1. 项目背景
+2. 功能需求分析
+3. 设计思路（模块划分、涉及知识点）
+4. 功能实现步骤
+5. 遇到的问题及解决办法
+6. 功能界面展示
+7. 总结
 
-在视觉验证通过的页面上验证以下功能路径：
+## 工作原则
 
-- [ ] F1 创建：登录 → 欢迎页 → 待办列表 → FAB → 填写标题/内容 → 保存 → 列表可见新条目
-- [ ] F2 查看：点击列表条目 → 进入详情页 → 所有字段正确展示（标题、内容、状态、时间）
-- [ ] F3 编辑：详情页 → 编辑按钮 → 修改标题/内容 → 保存 → 列表更新
-- [ ] F4 删除：详情页 → 删除按钮 → 确认弹窗 → 删除 → 列表刷新
-- [ ] F5 状态切换：列表页 CheckBox 勾选 → 状态变更 → 详情页确认
-
-### 第四阶段：构建验证
-
-最终确认 `cd app && gradlew.bat assembleDebug` 退出码为 0。
-
-## 完成标准
-
-所有以下条件均为 true 时目标完成：
-- 视觉验证截图无布局/样式问题（6 个页面）
-- F1-F5 功能路径在最终构建上验证通过
-- Debug APK 构建退出码 0
-- 上一阶段已知问题的修复代码已提交
+1. **原子提交**：每个 commit 只做一件事，改完立即提交
+2. **可编译**：每个 commit 后 `gradlew assembleDebug` 必须通过
+3. **勿跑偏**：任何改动不得偏离 Java + Activity + SQLite 技术栈
+4. **对齐纲要**：功能/界面/代码/文档四个维度对齐 `02-grading-rubric.md` 评分标准
+5. **以页面实际呈现效果为准**：一切 UI 效果以运行在模拟器/设备上的实际截图为准，不依赖 XML 静态推断
