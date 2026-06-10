@@ -5,7 +5,7 @@ public class Todo {
     private int id;
     private String title;
     private String content;
-    private boolean isDone;
+    private boolean done;
     private long createTime;
 
     public Todo() {}
@@ -13,7 +13,7 @@ public class Todo {
     public Todo(String title, String content) {
         this.title = title;
         this.content = content;
-        this.isDone = false;
+        this.done = false;
         this.createTime = System.currentTimeMillis();
     }
 
@@ -23,8 +23,10 @@ public class Todo {
     public void setTitle(String title) { this.title = title; }
     public String getContent() { return content; }
     public void setContent(String content) { this.content = content; }
-    public boolean isDone() { return isDone; }
-    public void setDone(boolean done) { isDone = done; }
+    public boolean isDone() { return done; }
+    public void setDone(boolean done) {
+        this.done = done;
+    }
     public long getCreateTime() { return createTime; }
     public void setCreateTime(long createTime) { this.createTime = createTime; }
 }

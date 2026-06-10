@@ -45,7 +45,7 @@ public class TodoDBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("title", todo.getTitle());
         values.put("content", todo.getContent());
-        values.put("is_done", 0);
+        values.put("is_done", todo.isDone() ? 1 : 0);
         values.put("create_time", System.currentTimeMillis());
         return db.insert(TABLE_NAME, null, values);
     }
