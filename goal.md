@@ -14,20 +14,20 @@
 
 ## 评分维度（满分 100）
 
-| 维度 | 分值 | 级别判定标准 |
-|------|------|-------------|
-| 功能实现 | 50 | F1–F5 全部完整运行 → 40–50；主要功能有小问题 → 30–40；缺失较多 → 0–30 |
-| 界面设计 | 20 | 简洁美观、布局合理、符合安卓规范 → 15–20；基本可用有瑕疵 → 10–15；影响体验 → 0–10 |
-| 代码质量 | 20 | 结构清晰、命名规范、注释充分 → 15–20；基本可读有规范问题 → 10–15；混乱难维护 → 0–10 |
-| 文档撰写 | 10 | 7 章节完整、内容充实 → 8–10；能反映项目但有缺失 → 5–8；质量较差 → 0–5 |
+| 维度 | 分值 | 优档标准 |
+|------|------|----------|
+| 功能实现 | 50 | F1–F5 全部完整实现，运行正常无问题 |
+| 界面设计 | 20 | 简洁美观、按钮布局合理、交互流畅、符合安卓设计规范 |
+| 代码质量 | 20 | 结构清晰、命名规范、注释充分 |
+| 文档撰写 | 10 | 7 章节完整、内容充实、条理清晰 |
 
 > 详细档位条件见 `materials/2_design/02-grading-rubric.md`
 
 ---
 
-## 当前状态
+## 当前状态（2026-06-10）
 
-代码模块（F1–F5）已全部实现，进入课程设计整体打磨阶段。
+代码模块（F1–F5）已全部实现，实训 1–6 用户模块已接入。进入课程设计全面打磨阶段。
 
 ### 功能验收清单
 
@@ -37,56 +37,29 @@
 - [x] **F4 删除** — 长按列表项触发删除确认
 - [x] **F5 状态切换** — 已完成/未完成两种状态可切换
 
-### 用户模块验收清单（实训 1–6）
+### 教材审查发现的问题（待修复）
+> 参照 `教材大纲审查-正式计划.md`
 
-- [x] 注册/登录完整流程
-- [x] 记住密码（SharedPreferences）
-- [x] 自动登录
-- [x] CheckBox 联动
-- [x] 注册回填
+| 档位 | 问题 | 文件 | 状态 |
+|------|------|------|------|
+| 🔴 P0 | CheckBox listener 绑定时机，打开详情页触发多余 DB 写 | TodoDetailActivity.java | ⏳ 待修复 |
+| 🔴 P0 | Todo.java isDone 字段命名不合 JavaBean 规范 | bean/Todo.java + bean/后续引用 | ⏳ 待修复 |
+| 🟠 P1 | 注册前未判重，重复用户名 SQLiteConstraintException crash | RegisterActivity.java | ⏳ 待修复 |
+| 🟠 P1 | insert() 写死 is_done=0 忽略传入值 | dbunit/TodoDBHelper.java | ⏳ 待修复 |
+| 🟢 P2 | MySQL→SQLite 架构偏差，报告中需说明选型原因 | reports/课程设计报告.md | ⏳ 待修复 |
+| 🟢 P2 | 缺少邮箱字段（教材注册表单要求） | RegisterActivity.java + 报告 | ⏳ 报告说明 |
+| 🟡 P3 | 报告模板表格/知识点未对齐 | reports/课程设计报告.md | ⏳ 待修复 |
 
 ---
 
-## 待完成工作
+## 目标条件
 
-### 1. 课程设计报告（文档 10 分）
+以下 4 项全部满足时，目标达成：
 
-按 `materials/2_design/03-report-template.md` 七章节骨架，以 Markdown 撰写，每节有实质内容。
-
-| # | 章节 | 状态 |
-|---|------|------|
-| 1 | 项目背景（约 200–400 字） | ⬜ |
-| 2 | 功能需求分析（F1–F5 业务描述 + 用户故事） | ⬜ |
-| 3 | 设计思路（3.1 模块划分 + 3.2 涉及知识点） | ⬜ |
-| 4 | 功能实现步骤（按模块分段 + 关键代码片段 5–15 行） | ⬜ |
-| 5 | 遇到的问题及解决办法（至少 2 个真实问题） | ⬜ |
-| 6 | 功能界面展示（至少 5 张截图，每张 1–2 句说明） | ⬜ |
-| 7 | 总结（约 200–400 字） | ⬜ |
-
-> 前置条件：需要在模拟器/设备上运行截图（以页面实际呈现效果为准）。
-
-### 2. 界面打磨（界面 20 分）
-
-- [ ] 7 个布局文件统一设计体系（颜色、间距、字体）
-- [ ] 按钮/输入框样式复用（`MyBtnStyle` / `MyEditStyle`）
-- [ ] 各分辨率下布局合理，无溢出/截断
-- [ ] 触控反馈（selector）到位
-
-### 3. 代码质量自查（代码 20 分）
-
-- [ ] 包结构 `bean` / `dao` / `dbunit` / `adapter` 四包拆分清晰
-- [ ] 类名 PascalCase，方法/变量 camelCase，资源 snake_case
-- [ ] 关键方法和 SQL 有注释
-- [ ] 所有数据库操作在 `new Thread()` 子线程，UI 更新用 `runOnUiThread()`
-- [ ] 颜色集中在 `colors.xml`，尺寸用 `dp`/`sp`，无硬编码 `px`
-- [ ] 所有 Activity 在 `AndroidManifest.xml` 中注册
-
-### 4. 打包提交
-
-- [ ] `gradlew assembleDebug` 构建通过
-- [ ] 代码 zip 命名为 `学号_姓名_简易待办代码.zip`
-- [ ] 报告命名为 `学号_姓名_简易待办课程设计报告.md`
-- [ ] 三个文件上传课堂派 · 课程设计考核
+1. **构建通过**：`cd app && gradlew.bat assembleDebug` 零错误完成，生成 debug APK
+2. **真机/模拟器验证**：APK 安装到设备，所有 Android 操作（包括模拟器管理、安装、截图）**必须调用 `android-cli` skill**（`android run` / `android emulator` / `android screen` 等），不得直接用 adb 命令。对话中须呈现以下证据之一证明运行正常： - 截图覆盖：登录页 → 注册页 → 列表页 → 详情页 → 编辑页，5 个 Activity 均启动 - 或 `android screen capture` 截得关键页面图 3. **CheckBox listener 绑定时机**：`TodoDetailActivity.java` 中 `cbDone.setOnCheckedChangeListener` 的绑定代码位于 `loadTodo()` 的 `runOnUiThread` 回调**之后**（先是 `loadTodo()` 里的 `cbDone.setChecked()` 执行完毕，再绑定 listener），消除打开详情页时触发多余 `updateStatus` DB 写的问题
+3. **注册判重**：`RegisterActivity.java` 在 `dao.insert()` 之前调用 `dao.findByName(name)` 检查用户名是否已存在，已存在时 Toast 提示并 return，不再因 SQLite UNIQUE 约束触发 `SQLiteConstraintException` crash
+4. **JavaBean 命名 + insert 参数传递**：`bean/Todo.java` 字段 `isDone` 改名为 `done`，getter 保持 `isDone()`（符合 JavaBean boolean 规范）；`TodoDBHelper.java` 中引用同步由 `todo.isDone` 改为 `todo.done` 时只改 field 访问；`dbunit/TodoDBHelper.java` 的 `insert()` 方法用 `todo.isDone() ? 1 : 0` 代替硬编码的 `0`，正确传递传入值
 
 ---
 
