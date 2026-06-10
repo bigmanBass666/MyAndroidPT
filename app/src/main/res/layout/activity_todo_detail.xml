@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_light_blue"
+    android:background="?attr/colorSurface"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:padding="16dp">
@@ -12,9 +12,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/green_700"
-        android:title="待办详情"
-        android:titleTextColor="@color/white"
+        android:background="?attr/colorPrimary"
+        android:titleTextColor="?attr/colorOnPrimary"
+        android:title="@string/label_account"
         android:navigationIcon="@android:drawable/ic_menu_revert"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
@@ -25,102 +25,109 @@
         android:layout_marginTop="8dp"
         android:padding="8dp">
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            style="@style/ShapeMedium"
+            app:cardElevation="1dp"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:strokeWidth="1dp"
+            android:padding="16dp">
 
-            <TextView
-                android:id="@+id/tv_detail_title"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:textColor="@color/green_700"
-                android:textStyle="bold" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_detail_status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:textSize="16sp"
-                android:textColor="@color/text_secondary" />
+                <TextView
+                    android:id="@+id/tv_detail_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnSurface" />
 
-            <CheckBox
-                android:id="@+id/cb_detail_done"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="标记为已完成"
-                android:buttonTint="?attr/colorPrimary"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tv_detail_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:textSize="16sp"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@color/divider" />
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cb_detail_done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:buttonTint="?attr/colorPrimary"
+                    android:text="@string/cb_auto_login"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="内容："
-                android:textSize="14sp"
-                android:textColor="@color/text_secondary" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?attr/colorOutlineVariant" />
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="8dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:text="@string/label_password" />
 
                 <TextView
                     android:id="@+id/tv_detail_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:textColor="@color/text_primary"
-                    android:lineSpacingExtra="4dp" />
-            </ScrollView>
+                    android:textColor="?attr/colorOnSurface"
+                    android:lineSpacingExtra="4dp"
+                    android:layout_marginTop="4dp" />
 
-            <TextView
-                android:id="@+id/tv_detail_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="end"
-                android:textSize="12sp"
-                android:textColor="@color/text_hint" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="16dp"
-                android:gravity="end"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btn_detail_edit"
-                    style="@style/MyBtnStyle"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tv_detail_time"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/btn_edit"
-                    android:layout_marginEnd="16dp" />
+                    android:layout_marginTop="8dp"
+                    android:gravity="end"
+                    android:textSize="12sp"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
 
-                <Button
-                    android:id="@+id/btn_detail_delete"
-                    style="@style/MyBtnStyle"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/btn_delete" />
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_detail_edit"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/btn_edit"
+                        android:layout_marginEnd="16dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_detail_delete"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/btn_detail_delete"
+                        android:textColor="@color/danger" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
-        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
     </ScrollView>
 
 </LinearLayout>

@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_light_blue"
+    android:background="?attr/colorSurface"
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/green_700"
-        android:title="我的待办"
-        android:titleTextColor="@color/white"
+        android:background="?attr/colorPrimary"
+        android:titleTextColor="?attr/colorOnPrimary"
+        android:title="@string/label_account"
         android:navigationIcon="@android:drawable/ic_menu_revert"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
@@ -33,6 +33,7 @@
         android:layout_margin="16dp"
         android:src="@android:drawable/ic_input_add"
         android:contentDescription="@string/fab_add_todo"
-        app:backgroundTint="@color/green_700" />
+        app:backgroundTint="?attr/colorPrimary"
+        app:tint="@color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

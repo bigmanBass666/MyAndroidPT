@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_light_blue"
+    android:background="?attr/colorSurface"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:padding="16dp">
@@ -12,40 +12,51 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/green_700"
-        android:title="新增待办"
-        android:titleTextColor="@color/white"
+        android:background="?attr/colorPrimary"
+        android:titleTextColor="?attr/colorOnPrimary"
+        android:title="@string/label_account"
         android:navigationIcon="@android:drawable/ic_menu_revert"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <EditText
-        android:id="@+id/et_title"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="标题（必填）"
         android:layout_marginTop="16dp"
-        android:inputType="text"
-        style="@style/MyEditStyle" />
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="?attr/colorPrimary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_account"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/label_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="内容："
+        android:text="@string/label_password"
         android:textSize="14sp"
-        android:textColor="@color/text_secondary"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:layout_marginTop="16dp" />
 
-    <EditText
-        android:id="@+id/et_content"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:hint="请输入内容（选填）"
-        android:layout_marginTop="8dp"
-        android:gravity="top"
-        android:inputType="textMultiLine|textCapSentences"
-        style="@style/MyEditStyle" />
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="?attr/colorPrimary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/hint_password"
+            android:gravity="top"
+            android:inputType="textMultiLine|textCapSentences" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,20 +65,21 @@
         android:gravity="end"
         android:layout_marginTop="12dp">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_cancel"
-            style="@style/MyBtnStyle"
+            style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btn_cancel" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_save"
-            style="@style/MyBtnStyle"
+            style="@style/Widget.Material3.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btn_save"
             android:layout_marginStart="16dp" />
+
     </LinearLayout>
 
 </LinearLayout>
