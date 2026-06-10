@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_light_blue"
+    android:background="?attr/colorSurface"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:padding="16dp"
@@ -13,9 +13,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/green_700"
-        android:title="欢迎"
-        android:titleTextColor="@color/white" />
+        android:background="?attr/colorPrimary"
+        android:titleTextColor="?attr/colorOnPrimary"
+        android:title="@string/title_welcome" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,24 +30,27 @@
             android:layout_height="wrap_content"
             android:text="@string/welcome_back"
             android:textSize="22sp"
-            android:textColor="@color/green_700"
+            android:textColor="?attr/colorPrimary"
             android:textStyle="bold" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_todo_list"
-            style="@style/MyBtnStyle"
+            style="@style/Widget.Material3.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@string/btn_todo_list" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_logout"
-            style="@style/MyBtnStyle"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="@string/btn_logout" />
+            android:text="@string/btn_logout"
+            android:insetLeft="0dp"
+            android:insetRight="0dp" />
+
     </LinearLayout>
 
 </LinearLayout>
