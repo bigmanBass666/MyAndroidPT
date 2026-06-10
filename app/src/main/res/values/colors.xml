@@ -1,26 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/green_500</color>
-    <color name="colorPrimaryDark">@color/green_700</color>
-    <color name="colorAccent">#F4511E</color>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- 主色系 (Primary) -->
     <color name="green_200">#C5E1A5</color>
     <color name="green_500">#8BC34A</color>
+    <color name="colorPrimary">@color/green_500</color>
     <color name="green_700">#689F38</color>
-    <color name="background_light_blue">#FFE3F2FD</color>
+    <color name="green_800">#558B2F</color>
+    <color name="green_900">#33691E</color>
 
+    <!-- 辅色系 (Secondary) -->
+    <color name="teal_50">#E0F2F1</color>
+    <color name="teal_200">#80CBC4</color>
+    <color name="teal_700">#00796B</color>
+    <color name="teal_900">#004D40</color>
+
+    <!-- 三色系 (Tertiary) -->
+    <color name="amber_100">#FFE082</color>
+    <color name="amber_500">#FFC107</color>
+    <color name="amber_700">#FFA000</color>
+    <color name="amber_900">#FF6F00</color>
+
+    <!-- 错误色系 -->
+    <color name="red_100">#FFCDD2</color>
+    <color name="red_600">#E53935</color>
+    <color name="red_900">#B71C1C</color>
+
+    <!-- 表面层 -->
+    <color name="surface_light">#FFFBFE</color>
+    <color name="on_surface_light">#1C1B1F</color>
+    <color name="surface_variant">#F0EDE8</color>
+    <color name="on_surface_variant">#49454F</color>
+    <color name="outline_light">#79747E</color>
+
+    <!-- 基础颜色 -->
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="status_done">#FFFF9800</color>
+    <color name="status_undone">#FF4CAF50</color>
+    <color name="danger">#FFE53935</color>
+
+    <!-- 布局兼容别名（硬编码，Night 主题下不跟随） -->
     <color name="text_primary">#FF212121</color>
     <color name="text_secondary">#FF757575</color>
     <color name="text_hint">#FFBDBDBD</color>
     <color name="divider">#FFE0E0E0</color>
     <color name="btn_disabled">#FFBDBDBD</color>
-    <color name="status_done">#FFFF9800</color>
-    <color name="status_undone">#FF4CAF50</color>
-    <color name="danger">#FFE53935</color>
+    <color name="background_light_blue">#FFE3F2FD</color>
 </resources>
