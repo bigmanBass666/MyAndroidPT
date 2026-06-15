@@ -12,12 +12,18 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/** 注册页面，提供用户注册功能（账号/密码/确认密码/邮箱） */
 public class RegisterActivity extends AppCompatActivity {
+
+    public static final String EXTRA_USER_NAME = "userName";
+    public static final String EXTRA_PASSWORD = "password";
+    public static final String EXTRA_EMAIL = "email";
 
     private EditText etAccount;
     private EditText etPassword;
     private EditText etPasswordConfirm;
     private EditText etEmail;
+    private UserDao userDao;
     private Button btnRegister;
     private CheckBox rbAgree;
 
@@ -43,64 +49,90 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(this, "输入信息不完整，请重新输入！", Toast.LENGTH_SHORT).show();
                 return;
             }
+
             // 密码强度校验：长度至少6位
             if (psw.length() < 6) {
                 Toast.makeText(this, "密码长度至少6位", Toast.LENGTH_SHORT).show();
                 return;
             }
+
             // 密码强度校验：必须包含字母和数字
             boolean hasLetter = false;
             boolean hasDigit = false;
             for (char c : psw.toCharArray()) {
                 if (Character.isLetter(c)) {
                     hasLetter = true;
-                } else if (Character.isDigit(c)) {
+                }
+ else if (Character.isDigit(c)) {
                     hasDigit = true;
                 }
+
                 if (hasLetter && hasDigit) {
                     break;
                 }
+
             }
+
             if (!hasLetter || !hasDigit) {
                 Toast.makeText(this, "密码必须包含字母和数字", Toast.LENGTH_SHORT).show();
                 return;
             }
+
             if (!psw.equals(pswConfirm)) {
                 Toast.makeText(this, "两次输入的密码不一致，请重新输入！", Toast.LENGTH_SHORT).show();
                 return;
             }
+
             // 邮箱格式校验
             if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
                 Toast.makeText(this, "请输入正确的邮箱地址", Toast.LENGTH_SHORT).show();
                 return;
             }
+
             if (!rbAgree.isChecked()) {
                 Toast.makeText(this, "请勾选同意用户协议", Toast.LENGTH_SHORT).show();
                 return;
             }
 
+
             new Thread(() -> {
-                UserDao dao = new UserDao(RegisterActivity.this);
-                if (dao.findByName(name) != null) {
+                userDao = new UserDao(RegisterActivity.this);
+                if (userDao.findByName(name) != null) {
                     runOnUiThread(() -> Toast.makeText(RegisterActivity.this, "该用户名已被注册", Toast.LENGTH_SHORT).show());
                     return;
                 }
-                int rows = dao.insert(new User(name, psw, email));
+
+                int rows = userDao.insert(new User(name, psw, email));
                 runOnUiThread(() -> {
                     if (rows > 0) {
                         Toast.makeText(this, R.string.toast_register_success, Toast.LENGTH_SHORT).show();
                         // 注册成功后将用户信息回传给登录页
                         Intent intent = new Intent();
-                        intent.putExtra("userName", name);
-                        intent.putExtra("password", psw);
-                        intent.putExtra("email", email);
+                        intent.putExtra(EXTRA_USER_NAME, name);
+                        intent.putExtra(EXTRA_PASSWORD, psw);
+                        intent.putExtra(EXTRA_EMAIL, email);
                         setResult(RESULT_OK, intent);
                         finish();
-                    } else {
+                    }
+ else {
                         Toast.makeText(this, "注册失败，请稍后重试", Toast.LENGTH_SHORT).show();
                     }
-                });
-            }).start();
-        });
+
+                }
+);
+            }
+).start();
+        }
+);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (userDao != null) {
+            userDao.close();
+        }
+    }
+
+
 }

@@ -14,7 +14,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:titleTextColor="?attr/colorOnPrimary"
-        android:title="@string/label_account" />
+        android:title="@string/title_login" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -25,6 +25,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_account"
+            style="@style/MyEditStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_account"
@@ -40,10 +41,11 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_password"
+            style="@style/MyEditStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_password"
-            android:inputType="numberPassword" />
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
@@ -73,7 +75,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_login"
-        style="@style/Widget.Material3.Button.OutlinedButton"
+        style="@style/MyBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"

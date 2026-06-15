@@ -3,8 +3,7 @@ package com.ljx.pt.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.ImageButton;
+import com.google.android.material.checkbox.MaterialCheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,11 +18,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/** 待办列表 RecyclerView 适配器，支持状态切换、删除和点击跳转 */
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoVH> {
 
     public interface OnTodoActionListener {
         void onToggleDone(int todoId, boolean isDone);
-        void onDelete(int todoId);
+        void onDelete(int todoId, String todoTitle);
         void onItemClick(int todoId);
     }
 
@@ -55,12 +55,17 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoVH> {
         Todo todo = todos.get(position);
         holder.tvTitle.setText(todo.getTitle());
         holder.tvTime.setText(DATE_FMT.format(new Date(todo.getCreateTime())));
-        holder.cbDone.setChecked(todo.isDone());
+
+        // 先解绑避免复用冲突
         holder.cbDone.setOnCheckedChangeListener(null);
+        holder.cbDone.setChecked(todo.isDone());
+        // 再绑定
         holder.cbDone.setOnCheckedChangeListener((buttonView, isChecked) ->
             listener.onToggleDone(todo.getId(), isChecked));
+
+        holder.btnDelete.setFocusable(false);
         holder.btnDelete.setOnClickListener(v ->
-            listener.onDelete(todo.getId()));
+            listener.onDelete(todo.getId(), todo.getTitle()));
         holder.itemView.setOnClickListener(v ->
             listener.onItemClick(todo.getId()));
     }
@@ -71,10 +76,10 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoVH> {
     }
 
     static class TodoVH extends RecyclerView.ViewHolder {
-        CheckBox cbDone;
+        MaterialCheckBox cbDone;
         TextView tvTitle;
         TextView tvTime;
-        ImageButton btnDelete;
+        View btnDelete;
 
         TodoVH(@NonNull View itemView) {
             super(itemView);

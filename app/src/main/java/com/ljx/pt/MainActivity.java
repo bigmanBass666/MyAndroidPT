@@ -21,10 +21,10 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
     private EditText etAccount;
     private EditText etPassword;
-    private EditText etEmail;
     private Button btnLogin;
     private CheckBox cbRemember;
     private CheckBox cbAutoLogin;
+    private UserDao userDao;
     private TextView tvRegister;
 
     private ActivityResultLauncher<Intent> registerLauncher;
@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
         etAccount = findViewById(R.id.et_account);
         etPassword = findViewById(R.id.et_password);
-        etEmail = findViewById(R.id.et_email);
         btnLogin = findViewById(R.id.btn_login);
         cbRemember = findViewById(R.id.cb_pass_remember);
         cbAutoLogin = findViewById(R.id.cb_auto_login);
@@ -53,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                 return;
             }
             new Thread(() -> {
-                UserDao dao = new UserDao(MainActivity.this);
-                UserDao.LoginResult result = dao.login(name, psw);
+                userDao = new UserDao(MainActivity.this);
+                UserDao.LoginResult result = userDao.login(name, psw);
                 runOnUiThread(() -> {
                     if (result == UserDao.LoginResult.USER_NOT_FOUND) {
                         Toast.makeText(MainActivity.this, "该用户不存在", Toast.LENGTH_SHORT).show();
@@ -78,13 +77,9 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                     String userName = result.getData().getStringExtra("userName");
                     String password = result.getData().getStringExtra("password");
-                    String email = result.getData().getStringExtra("email");
                     if (userName != null && password != null) {
                         etAccount.setText(userName);
                         etPassword.setText(password);
-                        if (etEmail != null && email != null) {
-                            etEmail.setText(email);
-                        }
                     }
                 }
             }
@@ -125,13 +120,14 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             etAccount.setText(userName);
             etPassword.setText(password);
             cbRemember.setChecked(true);
+            cbAutoLogin.setChecked(isAutoLogin);
         }
     }
 
     private void performAutoLogin(String name, String psw) {
         new Thread(() -> {
-            UserDao dao = new UserDao(MainActivity.this);
-            User user = dao.findByName(name);
+            userDao = new UserDao(MainActivity.this);
+            User user = userDao.findByName(name);
             runOnUiThread(() -> {
                 if (user != null && user.getPsw().equals(psw)) {
                     Toast.makeText(this, "登录成功！", Toast.LENGTH_SHORT).show();
@@ -150,6 +146,13 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             if (isChecked) cbRemember.setChecked(true);
         } else if (buttonView == cbRemember) {
             if (!isChecked) cbAutoLogin.setChecked(false);
+        }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (userDao != null) {
+            userDao.close();
         }
     }
 }

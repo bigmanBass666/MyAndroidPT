@@ -14,9 +14,9 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:titleTextColor="?attr/colorOnPrimary"
-        android:title="@string/label_account"
-        android:navigationIcon="@android:drawable/ic_menu_revert"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        android:title="@string/title_todo_add"
+        android:navigationIcon="@drawable/ic_arrow_back"
+        app:popupTheme="@style/ThemeOverlay.Material3.Light" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             android:id="@+id/et_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/label_account"
+            android:hint="@string/hint_todo_title"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -37,7 +37,7 @@
         android:id="@+id/label_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/label_password"
+        android:text="@string/label_todo_content"
         android:textSize="14sp"
         android:textColor="?attr/colorOnSurfaceVariant"
         android:layout_marginTop="16dp" />
@@ -53,7 +53,7 @@
             android:id="@+id/et_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/hint_password"
+            android:hint="@string/hint_todo_content"
             android:gravity="top"
             android:inputType="textMultiLine|textCapSentences" />
     </com.google.android.material.textfield.TextInputLayout>

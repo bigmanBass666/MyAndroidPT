@@ -38,12 +38,6 @@
     <color name="status_done">#FFFF9800</color>
     <color name="status_undone">#FF4CAF50</color>
     <color name="danger">#FFE53935</color>
-
-    <!-- 布局兼容别名（硬编码，Night 主题下不跟随） -->
-    <color name="text_primary">#FF212121</color>
-    <color name="text_secondary">#FF757575</color>
-    <color name="text_hint">#FFBDBDBD</color>
-    <color name="divider">#FFE0E0E0</color>
-    <color name="btn_disabled">#FFBDBDBD</color>
-    <color name="background_light_blue">#FFE3F2FD</color>
+    <color name="btn_disabled">#BDBDBD</color>
+    <color name="colorAccent">#F4511E</color>
 </resources>

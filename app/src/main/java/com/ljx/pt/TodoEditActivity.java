@@ -9,10 +9,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.appbar.MaterialToolbar;
-import com.ljx.pt.R;
 import com.ljx.pt.bean.Todo;
-import com.ljx.pt.dbunit.TodoDBHelper;
+import com.ljx.pt.dao.TodoDao;
 
+/** 新增/编辑待办页面，根据 EXTRA_TODO_ID 区分新增或编辑模式 */
 public class TodoEditActivity extends AppCompatActivity {
 
     public static final String EXTRA_TODO_ID = "extra_todo_id";
@@ -23,7 +23,7 @@ public class TodoEditActivity extends AppCompatActivity {
     private Button btnSave;
     private MaterialToolbar toolbar;
 
-    private TodoDBHelper dbHelper;
+    private TodoDao todoDao;
     private int todoId = -1;
     private boolean isEditMode = false;
 
@@ -40,7 +40,7 @@ public class TodoEditActivity extends AppCompatActivity {
         btnCancel = findViewById(R.id.btn_cancel);
         btnSave = findViewById(R.id.btn_save);
 
-        dbHelper = new TodoDBHelper(this);
+        todoDao = new TodoDao(this);
 
         todoId = getIntent().getIntExtra(EXTRA_TODO_ID, -1);
         isEditMode = todoId != -1;
@@ -65,13 +65,12 @@ public class TodoEditActivity extends AppCompatActivity {
                 todo.setContent(content);
                 if (isEditMode) {
                     todo.setId(todoId);
-                    dbHelper.update(todo);
+                    todoDao.update(todo);
                 } else {
-                    dbHelper.insert(todo);
+                    todoDao.insert(todo);
                 }
                 runOnUiThread(() -> {
                     Toast.makeText(this, R.string.toast_saved, Toast.LENGTH_SHORT).show();
-                    setResult(RESULT_OK);
                     finish();
                 });
             }).start();
@@ -79,8 +78,9 @@ public class TodoEditActivity extends AppCompatActivity {
     }
 
     private void loadTodo() {
+        if (!isEditMode) return;
         new Thread(() -> {
-            Todo todo = dbHelper.queryById(todoId);
+            Todo todo = todoDao.queryById(todoId);
             runOnUiThread(() -> {
                 if (todo != null) {
                     etTitle.setText(todo.getTitle());
@@ -90,5 +90,13 @@ public class TodoEditActivity extends AppCompatActivity {
                 }
             });
         }).start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (todoDao != null) {
+            todoDao.close();
+        }
     }
 }

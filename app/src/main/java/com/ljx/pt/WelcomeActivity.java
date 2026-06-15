@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/** 登录后欢迎页面，显示用户名，提供进入待办列表和退出登录功能 */
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnLogout;
@@ -42,6 +43,8 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         SharedPreferences spf = getSharedPreferences("spfRecord", MODE_PRIVATE);
         SharedPreferences.Editor editor = spf.edit();
         editor.putBoolean("isAutoLogin", false);
+        // 注意：教材要求登出时 clear().apply()，此处保留账号密码方便下次登录
+        // 即不清除 isRemember/userName/password，仅取消自动登录
         editor.apply();
 
         Toast.makeText(this, "已退出登录", Toast.LENGTH_SHORT).show();
