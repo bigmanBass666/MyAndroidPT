@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
     private EditText etAccount;
     private EditText etPassword;
+    private EditText etEmail;
     private Button btnLogin;
     private CheckBox cbRemember;
     private CheckBox cbAutoLogin;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
         etAccount = findViewById(R.id.et_account);
         etPassword = findViewById(R.id.et_password);
+        etEmail = findViewById(R.id.et_email);
         btnLogin = findViewById(R.id.btn_login);
         cbRemember = findViewById(R.id.cb_pass_remember);
         cbAutoLogin = findViewById(R.id.cb_auto_login);
@@ -47,19 +49,19 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             String name = etAccount.getText().toString().trim();
             String psw = etPassword.getText().toString().trim();
             if (name.isEmpty() || psw.isEmpty()) {
-                Toast.makeText(MainActivity.this, "请输入账号和密码", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "输入信息不完整，请重新输入！", Toast.LENGTH_SHORT).show();
                 return;
             }
             new Thread(() -> {
                 UserDao dao = new UserDao(MainActivity.this);
-                User user = dao.findByName(name);
+                UserDao.LoginResult result = dao.login(name, psw);
                 runOnUiThread(() -> {
-                    if (user == null) {
-                        Toast.makeText(MainActivity.this, "用户不存在", Toast.LENGTH_SHORT).show();
-                    } else if (!user.getPsw().equals(psw)) {
-                        Toast.makeText(this, "密码错误", Toast.LENGTH_SHORT).show();
+                    if (result == UserDao.LoginResult.USER_NOT_FOUND) {
+                        Toast.makeText(MainActivity.this, "该用户不存在", Toast.LENGTH_SHORT).show();
+                    } else if (result == UserDao.LoginResult.WRONG_PASSWORD) {
+                        Toast.makeText(MainActivity.this, "密码错误，请重新输入！", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(this, R.string.toast_login_success, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "登录成功！", Toast.LENGTH_SHORT).show();
                         saveLoginState(name, psw);
                         Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
                         intent.putExtra("userName", name);
@@ -76,9 +78,13 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                     String userName = result.getData().getStringExtra("userName");
                     String password = result.getData().getStringExtra("password");
+                    String email = result.getData().getStringExtra("email");
                     if (userName != null && password != null) {
                         etAccount.setText(userName);
                         etPassword.setText(password);
+                        if (etEmail != null && email != null) {
+                            etEmail.setText(email);
+                        }
                     }
                 }
             }
@@ -128,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             User user = dao.findByName(name);
             runOnUiThread(() -> {
                 if (user != null && user.getPsw().equals(psw)) {
-                    Toast.makeText(this, R.string.toast_login_success, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "登录成功！", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
                     intent.putExtra("userName", name);
                     startActivity(intent);
