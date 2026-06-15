@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "u2": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["uiautomator2-mcp-server", "stdio"],
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      }
+    }
+  }
+}
