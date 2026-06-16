@@ -36,15 +36,15 @@ public class TodoDBHelperTest {
     @Test
     public void insert_returnsValidRowId() {
         Todo todo = Todo.of("测试标题", "测试内容");
-        long rowId = dbHelper.insert(todo);
+        long rowId = dbHelper.insert(todo, 1L);
         assertTrue("插入应返回有效ID", rowId > 0);
     }
 
     @Test
     public void queryById_returnsCorrectTodo() {
         Todo inserted = Todo.of("标题A", "内容A");
-        long rowId = dbHelper.insert(inserted);
-        Todo queried = dbHelper.queryById(rowId);
+        long rowId = dbHelper.insert(inserted, 1L);
+        Todo queried = dbHelper.queryById((int) rowId, 1L);
         assertNotNull("查询应返回数据", queried);
         assertEquals("标题应一致", "标题A", queried.getTitle());
         assertEquals("内容应一致", "内容A", queried.getContent());
@@ -55,12 +55,12 @@ public class TodoDBHelperTest {
     @Test
     public void update_modifiesTitleAndContent() {
         Todo todo = Todo.of("原标题", "原内容");
-        long rowId = dbHelper.insert(todo);
+        long rowId = dbHelper.insert(todo, 1L);
         Todo toUpdate = Todo.of("新标题", "新内容");
-        toUpdate.setId(rowId);
-        int rows = dbHelper.update(toUpdate);
+        toUpdate.setId((int) rowId);
+        int rows = dbHelper.update(toUpdate, 1L);
         assertEquals("应更新1行", 1, rows);
-        Todo updated = dbHelper.queryById(rowId);
+        Todo updated = dbHelper.queryById((int) rowId, 1L);
         assertEquals("标题应更新", "新标题", updated.getTitle());
         assertEquals("内容应更新", "新内容", updated.getContent());
     }
@@ -68,34 +68,34 @@ public class TodoDBHelperTest {
     @Test
     public void updateStatus_changesDoneFlag() {
         Todo todo = Todo.of("任务", "内容");
-        long rowId = dbHelper.insert(todo);
-        dbHelper.updateStatus(rowId, true);
-        Todo after = dbHelper.queryById(rowId);
+        long rowId = dbHelper.insert(todo, 1L);
+        dbHelper.updateStatus((int) rowId, true, 1L);
+        Todo after = dbHelper.queryById((int) rowId, 1L);
         assertTrue("应标记为完成", after.isDone());
-        dbHelper.updateStatus(rowId, false);
-        Todo undone = dbHelper.queryById((int) rowId);
+        dbHelper.updateStatus((int) rowId, false, 1L);
+        Todo undone = dbHelper.queryById((int) rowId, 1L);
         assertFalse("应标记为未完成", undone.isDone());
     }
 
     @Test
     public void delete_removesRecord() {
         Todo todo = Todo.of("待删", "内容");
-        long rowId = dbHelper.insert(todo);
-        int rows = dbHelper.delete(rowId);
+        long rowId = dbHelper.insert(todo, 1L);
+        int rows = dbHelper.delete((int) rowId, 1L);
         assertEquals("应删除1行", 1, rows);
-        Todo after = dbHelper.queryById(rowId);
+        Todo after = dbHelper.queryById((int) rowId, 1L);
         assertNull("删除后查询应返回null", after);
     }
 
     @Test
     public void queryAll_returnsOrderedByTimeDesc() {
-        dbHelper.insert(Todo.of("第一条", ""));
+        dbHelper.insert(Todo.of("第一条", ""), 1L);
         try { Thread.sleep(10); } catch (InterruptedException ignored) {}
-        dbHelper.insert(Todo.of("第二条", ""));
+        dbHelper.insert(Todo.of("第二条", ""), 1L);
         try { Thread.sleep(10); } catch (InterruptedException ignored) {}
-        dbHelper.insert(Todo.of("第三条", ""));
+        dbHelper.insert(Todo.of("第三条", ""), 1L);
 
-        List<Todo> list = dbHelper.queryAll();
+        List<Todo> list = dbHelper.queryAll(1L);
         assertEquals("应返回3条", 3, list.size());
         assertEquals("最新应在最前", "第三条", list.get(0).getTitle());
         assertEquals("最旧应在最后", "第一条", list.get(2).getTitle());
@@ -103,13 +103,13 @@ public class TodoDBHelperTest {
 
     @Test
     public void queryById_nonExistent_returnsNull() {
-        Todo result = dbHelper.queryById(99999);
+        Todo result = dbHelper.queryById(99999, 1L);
         assertNull("不存在的ID应返回null", result);
     }
 
     @Test
     public void delete_nonExistent_returnsZero() {
-        int rows = dbHelper.delete(99999);
+        int rows = dbHelper.delete(99999, 1L);
         assertEquals("删除不存在的行应返回0", 0, rows);
     }
 }

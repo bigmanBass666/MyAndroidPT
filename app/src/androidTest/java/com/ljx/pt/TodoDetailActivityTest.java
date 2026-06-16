@@ -43,7 +43,7 @@ public class TodoDetailActivityTest {
         helper.close();
     }
 
-    private void launchWithId(long id) {
+    private void launchWithId(int id) {
         Intent intent = new Intent(context, TodoDetailActivity.class);
         intent.putExtra(TodoEditActivity.EXTRA_TODO_ID, id);
         ActivityScenario.launch(intent);
@@ -52,10 +52,10 @@ public class TodoDetailActivityTest {
     @Test
     public void detail_showsTitleAndContent() {
         TodoDBHelper helper = new TodoDBHelper(context);
-        long id = helper.insert(Todo.of("展示标题", "展示内容"));
+        long id = helper.insert(Todo.of("展示标题", "展示内容"), 1L);
         helper.close();
 
-        launchWithId(id);
+        launchWithId((int) id);
 
         Espresso.onView(withId(R.id.tv_detail_title)).check(matches(withText("展示标题")));
         Espresso.onView(withId(R.id.tv_detail_content)).check(matches(withText("展示内容")));
@@ -64,10 +64,10 @@ public class TodoDetailActivityTest {
     @Test
     public void detail_emptyContent_showsPlaceholder() {
         TodoDBHelper helper = new TodoDBHelper(context);
-        long id = helper.insert(Todo.of("只有标题", ""));
+        long id = helper.insert(Todo.of("只有标题", ""), 1L);
         helper.close();
 
-        launchWithId(id);
+        launchWithId((int) id);
 
         Espresso.onView(withId(R.id.tv_detail_content)).check(matches(withText(containsString("无内容"))));
     }
@@ -75,24 +75,24 @@ public class TodoDetailActivityTest {
     @Test
     public void detail_statusChanged_togglesCheckbox() {
         TodoDBHelper helper = new TodoDBHelper(context);
-        long id = helper.insert(Todo.of("任务", ""));
+        long id = helper.insert(Todo.of("任务", ""), 1L);
         helper.close();
 
-        launchWithId(id);
+        launchWithId((int) id);
 
         Espresso.onView(withId(R.id.cb_detail_done)).perform(click());
 
-        Todo updated = new TodoDBHelper(context).queryById(id);
+        Todo updated = new TodoDBHelper(context).queryById((int) id, 1L);
         assertThat(updated.isDone(), is(true));
     }
 
     @Test
     public void deleteButton_opensConfirmDialog() {
         TodoDBHelper helper = new TodoDBHelper(context);
-        long id = helper.insert(Todo.of("待删任务", ""));
+        long id = helper.insert(Todo.of("待删任务", ""), 1L);
         helper.close();
 
-        launchWithId(id);
+        launchWithId((int) id);
 
         Espresso.onView(withId(R.id.btn_detail_delete)).perform(click());
         Espresso.onView(withText("确认删除")).inRoot(isDialog()).check(matches(isDisplayed()));
@@ -102,25 +102,25 @@ public class TodoDetailActivityTest {
     @Test
     public void deleteConfirm_deletesTodo() {
         TodoDBHelper helper = new TodoDBHelper(context);
-        long id = helper.insert(Todo.of("待删任务", ""));
+        long id = helper.insert(Todo.of("待删任务", ""), 1L);
         helper.close();
 
-        launchWithId(id);
+        launchWithId((int) id);
 
         Espresso.onView(withId(R.id.btn_detail_delete)).perform(click());
         Espresso.onView(withText("删除")).inRoot(isDialog()).perform(click());
 
-        Todo result = new TodoDBHelper(context).queryById(id);
+        Todo result = new TodoDBHelper(context).queryById((int) id, 1L);
         assertThat(result, is(nullValue()));
     }
 
     @Test
     public void editButton_launchesEditActivity() {
         TodoDBHelper helper = new TodoDBHelper(context);
-        long id = helper.insert(Todo.of("测试编辑", ""));
+        long id = helper.insert(Todo.of("测试编辑", ""), 1L);
         helper.close();
 
-        launchWithId(id);
+        launchWithId((int) id);
 
         Espresso.onView(withId(R.id.btn_detail_edit)).perform(click());
         Espresso.onView(withId(R.id.et_title)).check(matches(isDisplayed()));

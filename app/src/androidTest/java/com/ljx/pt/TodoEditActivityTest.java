@@ -77,11 +77,11 @@ public class TodoEditActivityTest {
     @Test
     public void editMode_titlePreFilled() {
         TodoDBHelper helper = new TodoDBHelper(context);
-        long id = helper.insert(Todo.of("原标题", "原内容"));
+        long id = helper.insert(Todo.of("原标题", "原内容"), 1L);
         helper.close();
 
         Intent intent = new Intent(context, TodoEditActivity.class);
-        intent.putExtra(TodoEditActivity.EXTRA_TODO_ID, id);
+        intent.putExtra(TodoEditActivity.EXTRA_TODO_ID, (int) id);
         ActivityScenario.launch(intent);
 
         onView(withId(R.id.et_title)).check(matches(withText("原标题")));
@@ -91,17 +91,17 @@ public class TodoEditActivityTest {
     @Test
     public void editMode_save_updatesTitle() {
         TodoDBHelper helper = new TodoDBHelper(context);
-        long id = helper.insert(Todo.of("原标题", "原内容"));
+        long id = helper.insert(Todo.of("原标题", "原内容"), 1L);
         helper.close();
 
         Intent intent = new Intent(context, TodoEditActivity.class);
-        intent.putExtra(TodoEditActivity.EXTRA_TODO_ID, id);
+        intent.putExtra(TodoEditActivity.EXTRA_TODO_ID, (int) id);
         ActivityScenario.launch(intent);
 
         onView(withId(R.id.et_title)).perform(replaceText("更新后的标题"));
         onView(withId(R.id.btn_save)).perform(click());
 
-        Todo updated = new TodoDBHelper(context).queryById(id);
+        Todo updated = new TodoDBHelper(context).queryById((int) id, 1L);
         assertThat(updated.getTitle(), is("更新后的标题"));
     }
 }
