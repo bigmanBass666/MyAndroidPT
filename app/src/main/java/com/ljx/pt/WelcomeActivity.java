@@ -39,7 +39,9 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_todo_list) {
-            startActivity(new Intent(this, TodoListActivity.class));
+            Intent intent = new Intent(this, TodoListActivity.class);
+            intent.putExtra("user_id", getIntent().getLongExtra("user_id", -1L));
+            startActivity(intent);
             return;
         }
         SharedPreferences spf = getSharedPreferences("user_info", MODE_PRIVATE);

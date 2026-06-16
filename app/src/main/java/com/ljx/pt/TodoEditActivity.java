@@ -40,7 +40,8 @@ public class TodoEditActivity extends AppCompatActivity {
         btnCancel = findViewById(R.id.btn_cancel);
         btnSave = findViewById(R.id.btn_save);
 
-        todoDao = new TodoDao(this);
+        long userId = getIntent().getLongExtra("user_id", -1L);
+        todoDao = new TodoDao(this, userId);
 
         todoId = getIntent().getLongExtra(EXTRA_TODO_ID, -1);
         isEditMode = todoId != -1;

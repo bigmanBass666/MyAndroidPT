@@ -37,7 +37,7 @@ public class TodoListActivity extends AppCompatActivity implements TodoAdapter.O
         rvTodo = findViewById(R.id.rv_todo);
         rvTodo.setLayoutManager(new LinearLayoutManager(this));
 
-        todoDao = new TodoDao(this);
+        todoDao = new TodoDao(this, getIntent().getLongExtra("user_id", -1L));
         adapter = new TodoAdapter(this);
         rvTodo.setAdapter(adapter);
 
@@ -46,6 +46,7 @@ public class TodoListActivity extends AppCompatActivity implements TodoAdapter.O
         FloatingActionButton fabAdd = findViewById(R.id.fab_add);
         fabAdd.setOnClickListener(v -> {
             Intent intent = new Intent(TodoListActivity.this, TodoEditActivity.class);
+            intent.putExtra("user_id", getIntent().getLongExtra("user_id", -1L));
             startActivity(intent);
         });
 
@@ -107,6 +108,7 @@ public class TodoListActivity extends AppCompatActivity implements TodoAdapter.O
     public void onItemClick(long todoId) {
         Intent intent = new Intent(TodoListActivity.this, TodoDetailActivity.class);
         intent.putExtra("todo_id", todoId);
+        intent.putExtra("user_id", getIntent().getLongExtra("user_id", -1L));
         startActivity(intent);
     }
 

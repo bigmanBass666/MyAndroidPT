@@ -61,11 +61,12 @@ public class TodoDetailActivity extends AppCompatActivity {
 			return;
 		}
 
-		todoDao = new TodoDao(this);
+		todoDao = new TodoDao(this, getIntent().getLongExtra("user_id", -1L));
 
 		btnEdit.setOnClickListener(v -> {
 			Intent intent = new Intent(TodoDetailActivity.this, TodoEditActivity.class);
 			intent.putExtra(TodoEditActivity.EXTRA_TODO_ID, todoId);
+			intent.putExtra("user_id", getIntent().getLongExtra("user_id", -1L));
 			startActivity(intent);
 		});
 
