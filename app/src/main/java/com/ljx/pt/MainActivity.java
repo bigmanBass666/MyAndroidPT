@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     }
 
     private void saveLoginState(String name, String psw) {
-        SharedPreferences spf = getSharedPreferences("spfRecord", MODE_PRIVATE);
+        SharedPreferences spf = getSharedPreferences("user_info", MODE_PRIVATE);
         SharedPreferences.Editor editor = spf.edit();
         if (cbRemember.isChecked()) {
             editor.putString("userName", name);
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     }
 
     private void initData() {
-        SharedPreferences spf = getSharedPreferences("spfRecord", MODE_PRIVATE);
+        SharedPreferences spf = getSharedPreferences("user_info", MODE_PRIVATE);
         boolean isRemember = spf.getBoolean("isRemember", false);
         boolean isAutoLogin = spf.getBoolean("isAutoLogin", false);
         String userName = spf.getString("userName", "");
