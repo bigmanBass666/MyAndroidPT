@@ -62,9 +62,12 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                         Toast.makeText(MainActivity.this, "密码错误，请重新输入！", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(this, "登录成功！", Toast.LENGTH_SHORT).show();
-                        saveLoginState(name, psw);
+                        User user = userDao.findByName(name);
+                        long userId = user != null ? user.getId() : 0;
+                        saveLoginState(name, psw, userId);
                         Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
                         intent.putExtra("userName", name);
+                        intent.putExtra("user_id", userId);
                         startActivity(intent);
                         finish();
                     }
@@ -94,12 +97,13 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         initData();
     }
 
-    private void saveLoginState(String name, String psw) {
+    private void saveLoginState(String name, String psw, long userId) {
         SharedPreferences spf = getSharedPreferences("user_info", MODE_PRIVATE);
         SharedPreferences.Editor editor = spf.edit();
         if (cbRemember.isChecked()) {
             editor.putString("userName", name);
             editor.putString("password", psw);
+            editor.putLong("userId", userId);
             editor.putBoolean("isRemember", true);
             editor.putBoolean("isAutoLogin", cbAutoLogin.isChecked());
         } else {
@@ -129,11 +133,13 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         new Thread(() -> {
             userDao = new UserDao(MainActivity.this);
             User user = userDao.findByName(name);
+            long userId = user != null ? user.getId() : 0;
             runOnUiThread(() -> {
                 if (user != null && user.getPsw().equals(psw)) {
                     Toast.makeText(this, "登录成功！", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
                     intent.putExtra("userName", name);
+                    intent.putExtra("user_id", userId);
                     startActivity(intent);
                     finish();
                 }
