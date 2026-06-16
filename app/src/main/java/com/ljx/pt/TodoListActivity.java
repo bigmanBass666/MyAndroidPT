@@ -72,7 +72,7 @@ public class TodoListActivity extends AppCompatActivity implements TodoAdapter.O
     }
 
     @Override
-    public void onToggleDone(int todoId, boolean isDone) {
+    public void onToggleDone(long todoId, boolean isDone) {
         new Thread(() -> {
             todoDao.updateStatus(todoId, isDone);
             runOnUiThread(this::loadTodos);
@@ -80,7 +80,7 @@ public class TodoListActivity extends AppCompatActivity implements TodoAdapter.O
     }
 
     @Override
-    public void onDelete(int todoId, String todoTitle) {
+    public void onDelete(long todoId, String todoTitle) {
         if (TextUtils.isEmpty(todoTitle)) {
             todoTitle = "";
         }
@@ -104,7 +104,7 @@ public class TodoListActivity extends AppCompatActivity implements TodoAdapter.O
     }
 
     @Override
-    public void onItemClick(int todoId) {
+    public void onItemClick(long todoId) {
         Intent intent = new Intent(TodoListActivity.this, TodoDetailActivity.class);
         intent.putExtra("todo_id", todoId);
         startActivity(intent);

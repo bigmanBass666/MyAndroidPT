@@ -28,15 +28,15 @@ public class TodoDao {
         return dbHelper.update(todo);
     }
 
-    public int updateStatus(int id, boolean isDone) {
+    public int updateStatus(long id, boolean isDone) {
         return dbHelper.updateStatus(id, isDone);
     }
 
-    public int delete(int id) {
+    public int delete(long id) {
         return dbHelper.delete(id);
     }
 
-    public Todo queryById(int id) {
+    public Todo queryById(long id) {
         return dbHelper.queryById(id);
     }
 

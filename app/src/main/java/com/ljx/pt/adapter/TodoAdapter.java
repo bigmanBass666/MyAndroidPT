@@ -22,9 +22,9 @@ import java.util.Locale;
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoVH> {
 
     public interface OnTodoActionListener {
-        void onToggleDone(int todoId, boolean isDone);
-        void onDelete(int todoId, String todoTitle);
-        void onItemClick(int todoId);
+        void onToggleDone(long todoId, boolean isDone);
+        void onDelete(long todoId, String todoTitle);
+        void onItemClick(long todoId);
     }
 
     private final List<Todo> todos = new ArrayList<>();

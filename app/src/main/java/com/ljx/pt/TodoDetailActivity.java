@@ -33,7 +33,7 @@ public class TodoDetailActivity extends AppCompatActivity {
 	private Button btnDelete;
 	private MaterialToolbar toolbar;
 	private TodoDao todoDao;
-	private int todoId = -1;
+	private long todoId = -1;
 	private Todo currentTodo;
 
 	private static final SimpleDateFormat DATE_FMT =
@@ -54,7 +54,7 @@ public class TodoDetailActivity extends AppCompatActivity {
 		toolbar = findViewById(R.id.toolbar);
 		toolbar.setNavigationOnClickListener(v -> finish());
 
-		todoId = getIntent().getIntExtra("todo_id", -1);
+		todoId = getIntent().getLongExtra("todo_id", -1);
 		if (todoId == -1) {
 			Toast.makeText(this, "参数错误", Toast.LENGTH_SHORT).show();
 			finish();

@@ -58,19 +58,19 @@ public class TodoDBHelper extends SQLiteOpenHelper {
         return db.update(TABLE_NAME, values, "_id=?", new String[]{String.valueOf(todo.getId())});
     }
 
-    public int updateStatus(int id, boolean isDone) {
+    public int updateStatus(long id, boolean isDone) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("is_done", isDone ? 1 : 0);
         return db.update(TABLE_NAME, values, "_id=?", new String[]{String.valueOf(id)});
     }
 
-    public int delete(int id) {
+    public int delete(long id) {
         SQLiteDatabase db = getWritableDatabase();
         return db.delete(TABLE_NAME, "_id=?", new String[]{String.valueOf(id)});
     }
 
-    public Todo queryById(int id) {
+    public Todo queryById(long id) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, null, "_id=?", new String[]{String.valueOf(id)}, null, null, null);
         try {
@@ -99,7 +99,7 @@ public class TodoDBHelper extends SQLiteOpenHelper {
 
     private Todo cursorToTodo(Cursor cursor) {
         Todo todo = new Todo();
-        todo.setId(cursor.getInt(cursor.getColumnIndexOrThrow("_id")));
+        todo.setId(cursor.getLong(cursor.getColumnIndexOrThrow("_id")));
         todo.setTitle(cursor.getString(cursor.getColumnIndexOrThrow("title")));
         todo.setContent(cursor.getString(cursor.getColumnIndexOrThrow("content")));
         todo.setDone(cursor.getInt(cursor.getColumnIndexOrThrow("is_done")) == 1);

@@ -2,7 +2,7 @@ package com.ljx.pt.bean;
 
 /** 待办事项实体类，对应 SQLite todo 表 */
 public class Todo {
-    private int id;
+    private long id;
     private String title;
     private String content;
     private boolean done;
@@ -18,8 +18,8 @@ public class Todo {
     }
 
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public long getId() { return id; }
+    public void setId(long id) { this.id = id; }
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
     public String getContent() { return content; }

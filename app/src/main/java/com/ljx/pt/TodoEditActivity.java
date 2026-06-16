@@ -24,7 +24,7 @@ public class TodoEditActivity extends AppCompatActivity {
     private MaterialToolbar toolbar;
 
     private TodoDao todoDao;
-    private int todoId = -1;
+    private long todoId = -1;
     private boolean isEditMode = false;
 
     @Override
@@ -42,7 +42,7 @@ public class TodoEditActivity extends AppCompatActivity {
 
         todoDao = new TodoDao(this);
 
-        todoId = getIntent().getIntExtra(EXTRA_TODO_ID, -1);
+        todoId = getIntent().getLongExtra(EXTRA_TODO_ID, -1);
         isEditMode = todoId != -1;
 
         if (isEditMode) {
