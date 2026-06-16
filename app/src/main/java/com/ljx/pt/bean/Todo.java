@@ -7,6 +7,7 @@ public class Todo {
     private String content;
     private boolean done;
     private long createTime;
+    private long userId;
 
     public Todo() {}
 
@@ -30,4 +31,6 @@ public class Todo {
     }
     public long getCreateTime() { return createTime; }
     public void setCreateTime(long createTime) { this.createTime = createTime; }
+    public long getUserId() { return userId; }
+    public void setUserId(long userId) { this.userId = userId; }
 }
