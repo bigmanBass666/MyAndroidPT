@@ -13,12 +13,6 @@ public class TodoDao {
     private final TodoDBHelper dbHelper;
     private final long userId;
 
-    /** @deprecated 仅用于未接 userId 的旧调用方，将 userId 默认设为 0；后续由 Commits 4-5 替换为带 userId 的构造 */
-    @Deprecated
-    public TodoDao(Context context) {
-        this(context, 0L);
-    }
-
     public TodoDao(Context context, long userId) {
         this.dbHelper = new TodoDBHelper(context);
         this.userId = userId;
