@@ -29,6 +29,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{id=" + id + ", name='" + name + "', psw='" + psw + "', email='" + email + "'}";
+        return "User{id=" + id + ", name='" + name + "'}";
     }
 }
