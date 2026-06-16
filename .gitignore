@@ -82,9 +82,3 @@ C/
 
 # Third-party archieve
 archieve/
-
-# Ad-hoc test scripts
-register_user.py
-test_full_flow.py
-test_full_flow_v2.py
-test_regression.py
