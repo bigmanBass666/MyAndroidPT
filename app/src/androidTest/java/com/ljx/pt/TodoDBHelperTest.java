@@ -35,14 +35,14 @@ public class TodoDBHelperTest {
 
     @Test
     public void insert_returnsValidRowId() {
-        Todo todo = new Todo("测试标题", "测试内容");
+        Todo todo = Todo.of("测试标题", "测试内容");
         long rowId = dbHelper.insert(todo);
         assertTrue("插入应返回有效ID", rowId > 0);
     }
 
     @Test
     public void queryById_returnsCorrectTodo() {
-        Todo inserted = new Todo("标题A", "内容A");
+        Todo inserted = Todo.of("标题A", "内容A");
         long rowId = dbHelper.insert(inserted);
         Todo queried = dbHelper.queryById((int) rowId);
         assertNotNull("查询应返回数据", queried);
@@ -54,9 +54,9 @@ public class TodoDBHelperTest {
 
     @Test
     public void update_modifiesTitleAndContent() {
-        Todo todo = new Todo("原标题", "原内容");
+        Todo todo = Todo.of("原标题", "原内容");
         long rowId = dbHelper.insert(todo);
-        Todo toUpdate = new Todo("新标题", "新内容");
+        Todo toUpdate = Todo.of("新标题", "新内容");
         toUpdate.setId((int) rowId);
         int rows = dbHelper.update(toUpdate);
         assertEquals("应更新1行", 1, rows);
@@ -67,7 +67,7 @@ public class TodoDBHelperTest {
 
     @Test
     public void updateStatus_changesDoneFlag() {
-        Todo todo = new Todo("任务", "内容");
+        Todo todo = Todo.of("任务", "内容");
         long rowId = dbHelper.insert(todo);
         dbHelper.updateStatus((int) rowId, true);
         Todo after = dbHelper.queryById((int) rowId);
@@ -79,7 +79,7 @@ public class TodoDBHelperTest {
 
     @Test
     public void delete_removesRecord() {
-        Todo todo = new Todo("待删", "内容");
+        Todo todo = Todo.of("待删", "内容");
         long rowId = dbHelper.insert(todo);
         int rows = dbHelper.delete((int) rowId);
         assertEquals("应删除1行", 1, rows);
@@ -89,11 +89,11 @@ public class TodoDBHelperTest {
 
     @Test
     public void queryAll_returnsOrderedByTimeDesc() {
-        dbHelper.insert(new Todo("第一条", ""));
+        dbHelper.insert(Todo.of("第一条", ""));
         try { Thread.sleep(10); } catch (InterruptedException ignored) {}
-        dbHelper.insert(new Todo("第二条", ""));
+        dbHelper.insert(Todo.of("第二条", ""));
         try { Thread.sleep(10); } catch (InterruptedException ignored) {}
-        dbHelper.insert(new Todo("第三条", ""));
+        dbHelper.insert(Todo.of("第三条", ""));
 
         List<Todo> list = dbHelper.queryAll();
         assertEquals("应返回3条", 3, list.size());

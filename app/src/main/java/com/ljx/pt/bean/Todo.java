@@ -10,12 +10,13 @@ public class Todo {
 
     public Todo() {}
 
-    public Todo(String title, String content) {
-        this.title = title;
-        this.content = content;
-        this.done = false;
-        this.createTime = System.currentTimeMillis();
+    public static Todo of(String title, String content) {
+        Todo t = new Todo();
+        t.setTitle(title);
+        t.setContent(content);
+        return t;
     }
+
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

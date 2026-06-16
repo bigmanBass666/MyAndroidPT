@@ -77,7 +77,7 @@ public class TodoEditActivityTest {
     @Test
     public void editMode_titlePreFilled() {
         TodoDBHelper helper = new TodoDBHelper(context);
-        long id = helper.insert(new Todo("原标题", "原内容"));
+        long id = helper.insert(Todo.of("原标题", "原内容"));
         helper.close();
 
         Intent intent = new Intent(context, TodoEditActivity.class);
@@ -91,7 +91,7 @@ public class TodoEditActivityTest {
     @Test
     public void editMode_save_updatesTitle() {
         TodoDBHelper helper = new TodoDBHelper(context);
-        long id = helper.insert(new Todo("原标题", "原内容"));
+        long id = helper.insert(Todo.of("原标题", "原内容"));
         helper.close();
 
         Intent intent = new Intent(context, TodoEditActivity.class);

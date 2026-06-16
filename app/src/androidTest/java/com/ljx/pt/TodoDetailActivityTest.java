@@ -52,7 +52,7 @@ public class TodoDetailActivityTest {
     @Test
     public void detail_showsTitleAndContent() {
         TodoDBHelper helper = new TodoDBHelper(context);
-        long id = helper.insert(new Todo("展示标题", "展示内容"));
+        long id = helper.insert(Todo.of("展示标题", "展示内容"));
         helper.close();
 
         launchWithId((int) id);
@@ -64,7 +64,7 @@ public class TodoDetailActivityTest {
     @Test
     public void detail_emptyContent_showsPlaceholder() {
         TodoDBHelper helper = new TodoDBHelper(context);
-        long id = helper.insert(new Todo("只有标题", ""));
+        long id = helper.insert(Todo.of("只有标题", ""));
         helper.close();
 
         launchWithId((int) id);
@@ -75,7 +75,7 @@ public class TodoDetailActivityTest {
     @Test
     public void detail_statusChanged_togglesCheckbox() {
         TodoDBHelper helper = new TodoDBHelper(context);
-        long id = helper.insert(new Todo("任务", ""));
+        long id = helper.insert(Todo.of("任务", ""));
         helper.close();
 
         launchWithId((int) id);
@@ -89,7 +89,7 @@ public class TodoDetailActivityTest {
     @Test
     public void deleteButton_opensConfirmDialog() {
         TodoDBHelper helper = new TodoDBHelper(context);
-        long id = helper.insert(new Todo("待删任务", ""));
+        long id = helper.insert(Todo.of("待删任务", ""));
         helper.close();
 
         launchWithId((int) id);
@@ -102,7 +102,7 @@ public class TodoDetailActivityTest {
     @Test
     public void deleteConfirm_deletesTodo() {
         TodoDBHelper helper = new TodoDBHelper(context);
-        long id = helper.insert(new Todo("待删任务", ""));
+        long id = helper.insert(Todo.of("待删任务", ""));
         helper.close();
 
         launchWithId((int) id);
@@ -117,7 +117,7 @@ public class TodoDetailActivityTest {
     @Test
     public void editButton_launchesEditActivity() {
         TodoDBHelper helper = new TodoDBHelper(context);
-        long id = helper.insert(new Todo("测试编辑", ""));
+        long id = helper.insert(Todo.of("测试编辑", ""));
         helper.close();
 
         launchWithId((int) id);
