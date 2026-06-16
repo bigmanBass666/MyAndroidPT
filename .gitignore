@@ -47,11 +47,15 @@ __pycache__/
 # Temporary files
 *.tmp
 *.tmp_img
+tmp_*
 *.bak*
 *.log
 *.lock
 
-# Images (kept out of repo; screenshots live in reports/screenshots)
+# Screenshots (user-managed, self-captured, not in repo)
+screenshots/
+docs/screenshots/
+reports/screenshots/
 *.png
 *.jpg
 *.jpeg
@@ -64,12 +68,14 @@ bugreport-*.zip
 .omc/
 .claude/scheduled_tasks.json
 .claude/scheduled_tasks.lock
+.claude/worktrees/
 
 # IDE
 .idea/
 .project
 .settings/
 .vscode/
+*.classpath
 
 # Unrelated workspace artifacts
 C/
