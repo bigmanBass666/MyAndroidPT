@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ljx.pt.bean.User;
 import com.ljx.pt.dao.UserDao;
 
+/** 登录页面，提供用户登录功能（账号/密码 + 记住密码 + 自动登录） */
 public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
     private EditText etAccount;
