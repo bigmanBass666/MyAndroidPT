@@ -89,7 +89,6 @@
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_register"
@@ -108,4 +107,5 @@
         android:textColor="?attr/colorOnSurface"
         android:textSize="14sp" />
 
+</LinearLayout>
 </LinearLayout>
