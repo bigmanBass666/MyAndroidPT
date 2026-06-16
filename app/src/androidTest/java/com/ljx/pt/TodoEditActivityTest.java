@@ -81,7 +81,7 @@ public class TodoEditActivityTest {
         helper.close();
 
         Intent intent = new Intent(context, TodoEditActivity.class);
-        intent.putExtra(TodoEditActivity.EXTRA_TODO_ID, (int) id);
+        intent.putExtra(TodoEditActivity.EXTRA_TODO_ID, id);
         ActivityScenario.launch(intent);
 
         onView(withId(R.id.et_title)).check(matches(withText("原标题")));
@@ -95,13 +95,13 @@ public class TodoEditActivityTest {
         helper.close();
 
         Intent intent = new Intent(context, TodoEditActivity.class);
-        intent.putExtra(TodoEditActivity.EXTRA_TODO_ID, (int) id);
+        intent.putExtra(TodoEditActivity.EXTRA_TODO_ID, id);
         ActivityScenario.launch(intent);
 
         onView(withId(R.id.et_title)).perform(replaceText("更新后的标题"));
         onView(withId(R.id.btn_save)).perform(click());
 
-        Todo updated = new TodoDBHelper(context).queryById((int) id);
+        Todo updated = new TodoDBHelper(context).queryById(id);
         assertThat(updated.getTitle(), is("更新后的标题"));
     }
 }

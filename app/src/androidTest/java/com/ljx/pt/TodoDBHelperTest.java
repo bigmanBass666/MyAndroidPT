@@ -44,7 +44,7 @@ public class TodoDBHelperTest {
     public void queryById_returnsCorrectTodo() {
         Todo inserted = Todo.of("标题A", "内容A");
         long rowId = dbHelper.insert(inserted);
-        Todo queried = dbHelper.queryById((int) rowId);
+        Todo queried = dbHelper.queryById(rowId);
         assertNotNull("查询应返回数据", queried);
         assertEquals("标题应一致", "标题A", queried.getTitle());
         assertEquals("内容应一致", "内容A", queried.getContent());
@@ -57,10 +57,10 @@ public class TodoDBHelperTest {
         Todo todo = Todo.of("原标题", "原内容");
         long rowId = dbHelper.insert(todo);
         Todo toUpdate = Todo.of("新标题", "新内容");
-        toUpdate.setId((int) rowId);
+        toUpdate.setId(rowId);
         int rows = dbHelper.update(toUpdate);
         assertEquals("应更新1行", 1, rows);
-        Todo updated = dbHelper.queryById((int) rowId);
+        Todo updated = dbHelper.queryById(rowId);
         assertEquals("标题应更新", "新标题", updated.getTitle());
         assertEquals("内容应更新", "新内容", updated.getContent());
     }
@@ -69,10 +69,10 @@ public class TodoDBHelperTest {
     public void updateStatus_changesDoneFlag() {
         Todo todo = Todo.of("任务", "内容");
         long rowId = dbHelper.insert(todo);
-        dbHelper.updateStatus((int) rowId, true);
-        Todo after = dbHelper.queryById((int) rowId);
+        dbHelper.updateStatus(rowId, true);
+        Todo after = dbHelper.queryById(rowId);
         assertTrue("应标记为完成", after.isDone());
-        dbHelper.updateStatus((int) rowId, false);
+        dbHelper.updateStatus(rowId, false);
         Todo undone = dbHelper.queryById((int) rowId);
         assertFalse("应标记为未完成", undone.isDone());
     }
@@ -81,9 +81,9 @@ public class TodoDBHelperTest {
     public void delete_removesRecord() {
         Todo todo = Todo.of("待删", "内容");
         long rowId = dbHelper.insert(todo);
-        int rows = dbHelper.delete((int) rowId);
+        int rows = dbHelper.delete(rowId);
         assertEquals("应删除1行", 1, rows);
-        Todo after = dbHelper.queryById((int) rowId);
+        Todo after = dbHelper.queryById(rowId);
         assertNull("删除后查询应返回null", after);
     }
 
