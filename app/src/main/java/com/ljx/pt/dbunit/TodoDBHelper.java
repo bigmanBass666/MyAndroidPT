@@ -15,7 +15,7 @@ import java.util.List;
 public class TodoDBHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "todo.db";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
     private static final String TABLE_NAME = "todo";
 
     public TodoDBHelper(Context context) {
@@ -26,6 +26,7 @@ public class TodoDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String sql = "CREATE TABLE " + TABLE_NAME + " ("
                 + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "user_id INTEGER NOT NULL, "
                 + "title TEXT NOT NULL, "
                 + "content TEXT, "
                 + "is_done INTEGER NOT NULL DEFAULT 0, "
@@ -40,9 +41,10 @@ public class TodoDBHelper extends SQLiteOpenHelper {
     }
 
     /** 插入一条新待办，返回自增主键 */
-    public long insert(Todo todo) {
+    public long insert(Todo todo, long userId) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put("user_id", userId);
         values.put("title", todo.getTitle());
         values.put("content", todo.getContent());
         values.put("is_done", todo.isDone() ? 1 : 0);
@@ -50,29 +52,29 @@ public class TodoDBHelper extends SQLiteOpenHelper {
         return db.insert(TABLE_NAME, null, values);
     }
 
-    public int update(Todo todo) {
+    public int update(Todo todo, long userId) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("title", todo.getTitle());
         values.put("content", todo.getContent());
-        return db.update(TABLE_NAME, values, "_id=?", new String[]{String.valueOf(todo.getId())});
+        return db.update(TABLE_NAME, values, "_id=? AND user_id=?", new String[]{String.valueOf(todo.getId()), String.valueOf(userId)});
     }
 
-    public int updateStatus(long id, boolean isDone) {
+    public int updateStatus(long id, boolean isDone, long userId) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("is_done", isDone ? 1 : 0);
-        return db.update(TABLE_NAME, values, "_id=?", new String[]{String.valueOf(id)});
+        return db.update(TABLE_NAME, values, "_id=? AND user_id=?", new String[]{String.valueOf(id), String.valueOf(userId)});
     }
 
-    public int delete(long id) {
+    public int delete(long id, long userId) {
         SQLiteDatabase db = getWritableDatabase();
-        return db.delete(TABLE_NAME, "_id=?", new String[]{String.valueOf(id)});
+        return db.delete(TABLE_NAME, "_id=? AND user_id=?", new String[]{String.valueOf(id), String.valueOf(userId)});
     }
 
-    public Todo queryById(long id) {
+    public Todo queryById(long id, long userId) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, null, "_id=?", new String[]{String.valueOf(id)}, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME, null, "_id=? AND user_id=?", new String[]{String.valueOf(id), String.valueOf(userId)}, null, null, null);
         try {
             if (cursor.moveToFirst()) {
                 return cursorToTodo(cursor);
@@ -83,10 +85,10 @@ public class TodoDBHelper extends SQLiteOpenHelper {
         return null;
     }
 
-    public List<Todo> queryAll() {
+    public List<Todo> queryAll(long userId) {
         List<Todo> list = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, "create_time DESC");
+        Cursor cursor = db.query(TABLE_NAME, null, "user_id=?", new String[]{String.valueOf(userId)}, null, null, "create_time DESC");
         try {
             while (cursor.moveToNext()) {
                 list.add(cursorToTodo(cursor));
@@ -100,6 +102,7 @@ public class TodoDBHelper extends SQLiteOpenHelper {
     private Todo cursorToTodo(Cursor cursor) {
         Todo todo = new Todo();
         todo.setId(cursor.getLong(cursor.getColumnIndexOrThrow("_id")));
+        todo.setUserId(cursor.getLong(cursor.getColumnIndexOrThrow("user_id")));
         todo.setTitle(cursor.getString(cursor.getColumnIndexOrThrow("title")));
         todo.setContent(cursor.getString(cursor.getColumnIndexOrThrow("content")));
         todo.setDone(cursor.getInt(cursor.getColumnIndexOrThrow("is_done")) == 1);
