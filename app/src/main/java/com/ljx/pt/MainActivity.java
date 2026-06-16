@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ljx.pt.bean.User;
 import com.ljx.pt.dao.UserDao;
 
+import com.ljx.pt.RegisterActivity;
+
 /** 登录页面，提供用户登录功能（账号/密码 + 记住密码 + 自动登录） */
 public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
@@ -79,8 +81,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    String userName = result.getData().getStringExtra("userName");
-                    String password = result.getData().getStringExtra("password");
+                    String userName = result.getData().getStringExtra(RegisterActivity.EXTRA_USER_NAME);
+                    String password = result.getData().getStringExtra(RegisterActivity.EXTRA_PASSWORD);
                     if (userName != null && password != null) {
                         etAccount.setText(userName);
                         etPassword.setText(password);

@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 /** 注册页面，提供用户注册功能（账号/密码/确认密码/邮箱） */
@@ -31,6 +33,9 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        MaterialToolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(v -> finish());
 
         etAccount = findViewById(R.id.et_account);
         etPassword = findViewById(R.id.et_password);
@@ -62,8 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
             for (char c : psw.toCharArray()) {
                 if (Character.isLetter(c)) {
                     hasLetter = true;
-                }
- else if (Character.isDigit(c)) {
+                } else if (Character.isDigit(c)) {
                     hasDigit = true;
                 }
 
@@ -113,17 +117,12 @@ public class RegisterActivity extends AppCompatActivity {
                         intent.putExtra(EXTRA_EMAIL, email);
                         setResult(RESULT_OK, intent);
                         finish();
-                    }
- else {
+                    } else {
                         Toast.makeText(this, "注册失败，请稍后重试", Toast.LENGTH_SHORT).show();
                     }
-
-                }
-);
-            }
-).start();
-        }
-);
+                });
+            }).start();
+        });
     }
 
     @Override

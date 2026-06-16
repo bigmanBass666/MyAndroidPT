@@ -23,7 +23,8 @@
         android:layout_marginTop="?attr/actionBarSize"
         android:padding="8dp"
         android:paddingStart="16dp"
-        android:paddingEnd="16dp" />
+        android:paddingEnd="16dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <TextView
         android:id="@+id/tv_empty_hint"

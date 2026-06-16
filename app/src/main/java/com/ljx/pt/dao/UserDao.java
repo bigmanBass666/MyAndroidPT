@@ -38,8 +38,8 @@ public class UserDao {
     }
 
     public void close() {
-    dbHelper.close();
-}
+        dbHelper.close();
+    }
 
 // 插入新用户（注册）
     public int insert(User user) {
