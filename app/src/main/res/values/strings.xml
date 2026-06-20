@@ -55,5 +55,6 @@
 <string name="cb_detail_done">标记为已完成</string>
 <string name="label_todo_content">内容：</string>
 <string name="hint_todo_content">请输入待办内容</string>
-<string name="tv_empty_hint">暂无待办</string>
+<string name="tv_empty_hint">还没有待办事项\n点击下方 + 按钮创建一个</string>
+    <string name="empty_todo_icon_desc">空待办列表</string>
 </resources>

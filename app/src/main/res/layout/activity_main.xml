@@ -16,15 +16,22 @@
         android:titleTextColor="?attr/colorOnPrimary"
         android:title="@string/title_login" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-        app:boxStrokeColor="?attr/colorPrimary">
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp"
+        app:contentPadding="16dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_account"
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="?attr/colorPrimary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_account"
             style="@style/MyEditStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,7 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-        app:boxStrokeColor="?attr/colorPrimary">
+        app:boxStrokeColor="?attr/colorPrimary"
+        app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_password"
@@ -72,6 +80,8 @@
             android:textColor="?attr/colorOnSurface"
             android:textSize="14sp" />
     </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_login"

@@ -107,7 +107,7 @@ public class TodoDetailActivity extends AppCompatActivity {
 				tvTitle.setText(todo.getTitle());
 				tvStatus.setText(todo.isDone() ? "已完成" : "未完成");
 				tvStatus.setTextColor(todo.isDone() ?
-						getColor(R.color.status_done) : getColor(R.color.status_undone));
+						getColor(R.color.green_500) : getColor(R.color.grey_500));
 				cbDone.setOnCheckedChangeListener(null);
 				cbDone.setChecked(todo.isDone());
 				tvContent.setText(TextUtils.isEmpty(todo.getContent()) ? "无内容" : todo.getContent());
@@ -125,7 +125,7 @@ public class TodoDetailActivity extends AppCompatActivity {
 					currentTodo.setDone(isChecked);
 					tvStatus.setText(isChecked ? "已完成" : "未完成");
 					tvStatus.setTextColor(isChecked ?
-							getColor(R.color.status_done) : getColor(R.color.status_undone));
+							getColor(R.color.green_500) : getColor(R.color.grey_500));
 				});
 			}).start();
 		});

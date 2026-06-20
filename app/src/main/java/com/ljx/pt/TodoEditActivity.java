@@ -2,6 +2,7 @@ package com.ljx.pt;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.textfield.TextInputLayout;
 import com.ljx.pt.bean.Todo;
 import com.ljx.pt.dao.TodoDao;
 
@@ -22,6 +24,7 @@ public class TodoEditActivity extends AppCompatActivity {
     private Button btnCancel;
     private Button btnSave;
     private MaterialToolbar toolbar;
+    private TextInputLayout tilTitle;
 
     private TodoDao todoDao;
     private long todoId = -1;
@@ -34,6 +37,8 @@ public class TodoEditActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
+
+        tilTitle = findViewById(R.id.til_title);
 
         etTitle = findViewById(R.id.et_title);
         etContent = findViewById(R.id.et_content);
@@ -56,9 +61,11 @@ public class TodoEditActivity extends AppCompatActivity {
         btnSave.setOnClickListener(v -> {
             String title = etTitle.getText().toString().trim();
             String content = etContent.getText().toString().trim();
-            if (title.isEmpty()) {
-                Toast.makeText(this, "标题不能为空", Toast.LENGTH_SHORT).show();
+            if (TextUtils.isEmpty(title)) {
+                tilTitle.setError("标题不能为空");
                 return;
+            } else {
+                tilTitle.setError(null);
             }
             new Thread(() -> {
                 Todo todo = new Todo();

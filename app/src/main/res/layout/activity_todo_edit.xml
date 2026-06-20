@@ -19,11 +19,13 @@
         app:popupTheme="@style/ThemeOverlay.Material3.Light" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-        app:boxStrokeColor="?attr/colorPrimary">
+        app:boxStrokeColor="?attr/colorPrimary"
+        app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_title"
@@ -33,29 +35,23 @@
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/label_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/label_todo_content"
-        android:textSize="14sp"
-        android:textColor="?attr/colorOnSurfaceVariant"
-        android:layout_marginTop="16dp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_marginTop="16dp"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         app:boxStrokeColor="?attr/colorPrimary">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:minLines="5"
+            android:gravity="top|start"
             android:hint="@string/hint_todo_content"
-            android:gravity="top"
-            android:inputType="textMultiLine|textCapSentences" />
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout

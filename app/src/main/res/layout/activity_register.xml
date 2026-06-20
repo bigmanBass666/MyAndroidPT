@@ -46,7 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            app:boxStrokeColor="?attr/colorPrimary">
+            app:boxStrokeColor="?attr/colorPrimary"
+            app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_password"
@@ -62,7 +63,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            app:boxStrokeColor="?attr/colorPrimary">
+            app:boxStrokeColor="?attr/colorPrimary"
+            app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_password_confirm"

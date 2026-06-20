@@ -3,6 +3,7 @@
     <!-- 主色系 (Primary) -->
     <color name="green_200">#C5E1A5</color>
     <color name="green_500">#8BC34A</color>
+    <color name="grey_500">#FF9E9E9E</color>
     <color name="colorPrimary">@color/green_500</color>
     <color name="green_700">#689F38</color>
     <color name="green_800">#558B2F</color>
@@ -38,6 +39,7 @@
     <color name="status_done">#FFFF9800</color>
     <color name="status_undone">#FF4CAF50</color>
     <color name="danger">#FFE53935</color>
+    <color name="red_error">#FFD32F2F</color>
     <color name="btn_disabled">#BDBDBD</color>
     <color name="colorAccent">#F4511E</color>
 </resources>
