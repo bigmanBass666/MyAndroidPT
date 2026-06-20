@@ -45,7 +45,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
             return;
         }
         SharedPreferences spf = getSharedPreferences("user_info", MODE_PRIVATE);
-        spf.edit().clear().apply();
+        spf.edit().putBoolean("isAutoLogin", false).apply();
 
         Toast.makeText(this, "已退出登录", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MainActivity.class);
