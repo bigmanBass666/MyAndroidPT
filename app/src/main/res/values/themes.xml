@@ -43,5 +43,14 @@
         <item name="shapeAppearanceCornerMedium">@style/ShapeMedium</item>
         <item name="shapeAppearanceCornerLarge">@style/ShapeLarge</item>
         <item name="shapeAppearanceCornerExtraLarge">@style/ShapeExtraLarge</item>
+
+        <!-- Typography tokens -->
+        <item name="textAppearanceHeadlineSmall">@style/TextAppearance.MyAndroidPT.HeadlineSmall</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.MyAndroidPT.TitleLarge</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.MyAndroidPT.TitleMedium</item>
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.MyAndroidPT.BodyLarge</item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.MyAndroidPT.BodyMedium</item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.MyAndroidPT.LabelLarge</item>
+        <item name="textAppearanceLabelSmall">@style/TextAppearance.MyAndroidPT.LabelSmall</item>
     </style>
 </resources>
