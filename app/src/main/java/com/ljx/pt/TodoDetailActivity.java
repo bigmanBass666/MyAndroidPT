@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class TodoDetailActivity extends AppCompatActivity {
 	private TodoDao todoDao;
 	private long todoId = -1;
 	private Todo currentTodo;
+	private CompoundButton.OnCheckedChangeListener doneListener;
 
 	private static final SimpleDateFormat DATE_FMT =
 			new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
@@ -86,6 +88,20 @@ public class TodoDetailActivity extends AppCompatActivity {
 					.setNegativeButton(R.string.btn_cancel, null)
 					.show();
 		});
+
+		doneListener = (buttonView, isChecked) -> {
+			new Thread(() -> {
+				todoDao.updateStatus(todoId, isChecked);
+				runOnUiThread(() -> {
+					if (currentTodo != null) {
+						currentTodo.setDone(isChecked);
+						tvStatus.setText(isChecked ? "已完成" : "未完成");
+						tvStatus.setTextColor(isChecked ?
+								getColor(R.color.green_500) : getColor(R.color.grey_500));
+					}
+				});
+			}).start();
+		};
 	}
 
 	@Override
@@ -110,25 +126,11 @@ public class TodoDetailActivity extends AppCompatActivity {
 						getColor(R.color.green_500) : getColor(R.color.grey_500));
 				cbDone.setOnCheckedChangeListener(null);
 				cbDone.setChecked(todo.isDone());
+				cbDone.setOnCheckedChangeListener(doneListener);
 				tvContent.setText(TextUtils.isEmpty(todo.getContent()) ? "无内容" : todo.getContent());
 				tvTime.setText(DATE_FMT.format(new Date(todo.getCreateTime())));
-				bindCheckListener();
 			});
 		}).start();
-	}
-
-	private void bindCheckListener() {
-		cbDone.setOnCheckedChangeListener((buttonView, isChecked) -> {
-			new Thread(() -> {
-				todoDao.updateStatus(todoId, isChecked);
-				runOnUiThread(() -> {
-					currentTodo.setDone(isChecked);
-					tvStatus.setText(isChecked ? "已完成" : "未完成");
-					tvStatus.setTextColor(isChecked ?
-							getColor(R.color.green_500) : getColor(R.color.grey_500));
-				});
-			}).start();
-		});
 	}
 
 	@Override

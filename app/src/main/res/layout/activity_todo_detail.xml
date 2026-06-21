@@ -73,13 +73,13 @@
                     android:layout_marginEnd="16dp"
                     android:background="?attr/colorOutlineVariant" />
 
-                <com.google.android.material.card.MaterialCardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="1dp"
-                    app:contentPadding="12dp">
+                    android:padding="12dp"
+                    android:orientation="vertical"
+                    android:background="?attr/colorSurfaceVariant">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -105,7 +105,7 @@
 
                     </LinearLayout>
 
-                </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_detail_time"
@@ -138,7 +138,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/btn_detail_delete"
-                        android:textColor="@color/danger" />
+                        android:textColor="?attr/colorError" />
 
                 </LinearLayout>
 
