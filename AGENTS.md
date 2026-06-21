@@ -6,6 +6,11 @@
 > **北极星纲要**: `materials/1_practical_trainning/index.md`（实训递进图）+ `materials/2_design/README.md`（课程设计考核材料）
 > **演进关系**: 原始要求为注册登录模块（实训 1-6），项目演进为 注册登录 + 待办 CRUD 双模块应用
 
+## Reference Documents
+
+- [实训递进图](materials/1_practical_trainning/index.md) — 实训 1-6 递进要求与北极星纲要
+- [课程设计考核材料](materials/2_design/README.md) — 课程设计说明、需求与考核标准
+
 ## Dev Environment Tips
 
 | 需求 | 命令 |
@@ -24,8 +29,19 @@
 | `cd app && gradlew.bat assembleDebug` | 构建 debug APK |
 | `cd app && gradlew.bat installDebug` | 构建并安装 |
 | `cd app && gradlew.bat clean` | 清理构建 |
+| `cd app && gradlew.bat lint` | 运行 lint 检查 |
 
 无单元测试（仅空的 Example 模板）。
+
+## Verification Loop
+
+| 步骤 | 命令 | 说明 |
+|------|------|------|
+| 1 | `cd app && gradlew.bat assembleDebug` | 确保编译通过 |
+| 2 | 安装到模拟器 | 使用 `android run` 或 ADB 验证 UI 效果 |
+| 3 | `cd app && gradlew.bat lint` | 检查无新增 lint 警告 |
+
+> 先编译 → 再验证功能 → 最后 lint 检查，形成闭环。任一环节失败则修复后重来。
 
 ## Project Structure
 
