@@ -5,12 +5,15 @@ import com.ljx.pt.dao.UserDao;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     private UserDao userDao;
     private Button btnRegister;
     private CheckBox rbAgree;
+    private TextInputLayout tilPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,43 @@ public class RegisterActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.et_email);
         btnRegister = findViewById(R.id.btn_register);
         rbAgree = findViewById(R.id.rb_agree);
+        tilPassword = findViewById(R.id.til_password);
+
+        // 密码强度实时检测
+        etPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String psw = s.toString();
+                if (psw.isEmpty()) {
+                    tilPassword.setHelperText(null);
+                    tilPassword.setHelperTextEnabled(false);
+                    tilPassword.setError(null);
+                    tilPassword.setErrorEnabled(false);
+                    return;
+                }
+
+                int strength = checkPasswordStrength(psw);
+                switch (strength) {
+                    case 0:
+                        tilPassword.setError(getString(R.string.password_weak));
+                        break;
+                    case 1:
+                        tilPassword.setErrorEnabled(false);
+                        tilPassword.setHelperText(getString(R.string.password_medium));
+                        break;
+                    case 2:
+                        tilPassword.setErrorEnabled(false);
+                        tilPassword.setHelperText(getString(R.string.password_strong));
+                        break;
+                }
+            }
+        });
 
         btnRegister.setOnClickListener(v -> {
             String name = etAccount.getText().toString().trim();
@@ -51,50 +92,23 @@ public class RegisterActivity extends AppCompatActivity {
             String email = etEmail.getText().toString().trim();
 
             if (name.isEmpty() || psw.isEmpty() || pswConfirm.isEmpty()) {
-                Toast.makeText(this, "输入信息不完整，请重新输入！", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            // 密码强度校验：长度至少6位
-            if (psw.length() < 6) {
-                Toast.makeText(this, "密码长度至少6位", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            // 密码强度校验：必须包含字母和数字
-            boolean hasLetter = false;
-            boolean hasDigit = false;
-            for (char c : psw.toCharArray()) {
-                if (Character.isLetter(c)) {
-                    hasLetter = true;
-                } else if (Character.isDigit(c)) {
-                    hasDigit = true;
-                }
-
-                if (hasLetter && hasDigit) {
-                    break;
-                }
-
-            }
-
-            if (!hasLetter || !hasDigit) {
-                Toast.makeText(this, "密码必须包含字母和数字", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.toast_incomplete_input, Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (!psw.equals(pswConfirm)) {
-                Toast.makeText(this, "两次输入的密码不一致，请重新输入！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.toast_password_mismatch, Toast.LENGTH_SHORT).show();
                 return;
             }
 
             // 邮箱格式校验
             if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
-                Toast.makeText(this, "请输入正确的邮箱地址", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.toast_invalid_email, Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (!rbAgree.isChecked()) {
-                Toast.makeText(this, "请勾选同意用户协议", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.toast_agree_protocol, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -102,7 +116,7 @@ public class RegisterActivity extends AppCompatActivity {
             new Thread(() -> {
                 userDao = new UserDao(RegisterActivity.this);
                 if (userDao.findByName(name) != null) {
-                    runOnUiThread(() -> Toast.makeText(RegisterActivity.this, "该用户名已被注册", Toast.LENGTH_SHORT).show());
+                    runOnUiThread(() -> Toast.makeText(RegisterActivity.this, R.string.toast_user_exists, Toast.LENGTH_SHORT).show());
                     return;
                 }
 
@@ -118,11 +132,32 @@ public class RegisterActivity extends AppCompatActivity {
                         setResult(RESULT_OK, intent);
                         finish();
                     } else {
-                        Toast.makeText(this, "注册失败，请稍后重试", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.toast_register_failed, Toast.LENGTH_SHORT).show();
                     }
                 });
             }).start();
         });
+    }
+
+    /**
+     * 检测密码强度
+     * @param psw 密码字符串
+     * @return 0=弱, 1=中, 2=强
+     */
+    private int checkPasswordStrength(String psw) {
+        if (psw.length() < 6) return 0; // 弱
+        boolean hasLetter = false, hasDigit = false;
+        boolean hasUpper = false, hasLower = false;
+        for (char c : psw.toCharArray()) {
+            if (Character.isUpperCase(c)) { hasUpper = true; hasLetter = true; }
+            else if (Character.isLowerCase(c)) { hasLower = true; hasLetter = true; }
+            else if (Character.isDigit(c)) hasDigit = true;
+        }
+        // 必须同时包含字母和数字，否则为弱
+        if (!hasLetter || !hasDigit) return 0; // 弱
+        // 包含大小写字母和数字且长度≥8 → 强
+        if (psw.length() >= 8 && hasUpper && hasLower && hasDigit) return 2; // 强
+        return 1; // 中
     }
 
     @Override

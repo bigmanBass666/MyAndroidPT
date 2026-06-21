@@ -57,4 +57,28 @@
 <string name="hint_todo_content">请输入待办内容</string>
 <string name="tv_empty_hint">还没有待办事项\n点击下方 + 按钮创建一个</string>
     <string name="empty_todo_icon_desc">空待办列表</string>
+
+    <!-- 欢迎页仪表盘 -->
+    <string name="stats_done_label">已完成</string>
+    <string name="stats_pending_label">待完成</string>
+    <string name="btn_quick_add">快速新建待办</string>
+
+    <!-- 加载状态 -->
+    <string name="btn_logging_in">登录中…</string>
+    <string name="btn_saving">保存中…</string>
+
+    <!-- 密码强度 -->
+    <string name="password_weak">弱 — 至少 6 个字符</string>
+    <string name="password_medium">中 — 建议包含大小写字母和数字</string>
+    <string name="password_strong">强 — 密码强度良好</string>
+
+    <!-- 注册页 Toast 提示 -->
+    <string name="toast_incomplete_input">输入信息不完整，请重新输入！</string>
+    <string name="toast_password_too_short">密码长度至少6位</string>
+    <string name="toast_password_need_letter_digit">密码必须包含字母和数字</string>
+    <string name="toast_password_mismatch">两次输入的密码不一致，请重新输入！</string>
+    <string name="toast_invalid_email">请输入正确的邮箱地址</string>
+    <string name="toast_agree_protocol">请勾选同意用户协议</string>
+    <string name="toast_user_exists">该用户名已被注册</string>
+    <string name="toast_register_failed">注册失败，请稍后重试</string>
 </resources>
