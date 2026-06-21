@@ -67,6 +67,8 @@ public class TodoEditActivity extends AppCompatActivity {
             } else {
                 tilTitle.setError(null);
             }
+            btnSave.setEnabled(false);
+            btnSave.setText(R.string.btn_saving);
             new Thread(() -> {
                 Todo todo = new Todo();
                 todo.setTitle(title);
@@ -78,6 +80,8 @@ public class TodoEditActivity extends AppCompatActivity {
                     todoDao.insert(todo);
                 }
                 runOnUiThread(() -> {
+                    btnSave.setEnabled(true);
+                    btnSave.setText(R.string.btn_save);
                     Toast.makeText(this, R.string.toast_saved, Toast.LENGTH_SHORT).show();
                     finish();
                 });

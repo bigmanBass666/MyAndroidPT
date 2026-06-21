@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                 Toast.makeText(MainActivity.this, "输入信息不完整，请重新输入！", Toast.LENGTH_SHORT).show();
                 return;
             }
+            btnLogin.setEnabled(false);
+            btnLogin.setText(R.string.btn_logging_in);
             new Thread(() -> {
                 userDao = new UserDao(MainActivity.this);
                 UserDao.LoginResult result = userDao.login(name, psw);
@@ -73,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                         startActivity(intent);
                         finish();
                     }
+                    btnLogin.setEnabled(true);
+                    btnLogin.setText(R.string.btn_login);
                 });
             }).start();
         });
@@ -144,6 +148,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                     intent.putExtra("user_id", userId);
                     startActivity(intent);
                     finish();
+                } else {
+                    Toast.makeText(MainActivity.this, "自动登录失败，请手动登录", Toast.LENGTH_SHORT).show();
                 }
             });
         }).start();

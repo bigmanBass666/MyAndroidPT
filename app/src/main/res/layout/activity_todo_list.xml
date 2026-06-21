@@ -64,6 +64,6 @@
         android:src="@drawable/ic_add"
         android:contentDescription="@string/fab_add_todo"
         app:backgroundTint="?attr/colorPrimary"
-        app:tint="@color/white" />
+        app:tint="?attr/colorOnPrimary" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

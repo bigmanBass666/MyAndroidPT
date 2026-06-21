@@ -28,6 +28,7 @@ public class TodoListActivity extends AppCompatActivity implements TodoAdapter.O
     private TodoAdapter adapter;
     private TodoDao todoDao;
     private TextView tvEmptyHint;
+    private View emptyStateContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class TodoListActivity extends AppCompatActivity implements TodoAdapter.O
         rvTodo.setAdapter(adapter);
 
         tvEmptyHint = findViewById(R.id.tv_empty_hint);
+        emptyStateContainer = findViewById(R.id.empty_state_container);
 
         FloatingActionButton fabAdd = findViewById(R.id.fab_add);
         fabAdd.setOnClickListener(v -> {
@@ -64,8 +66,8 @@ public class TodoListActivity extends AppCompatActivity implements TodoAdapter.O
             List<Todo> list = todoDao.queryAll();
             runOnUiThread(() -> {
                 adapter.setTodos(list);
-                if (tvEmptyHint != null) {
-                    tvEmptyHint.setVisibility(list.isEmpty() ? View.VISIBLE : View.GONE);
+                if (emptyStateContainer != null) {
+                    emptyStateContainer.setVisibility(list.isEmpty() ? View.VISIBLE : View.GONE);
                     rvTodo.setVisibility(list.isEmpty() ? View.GONE : View.VISIBLE);
                 }
             });
