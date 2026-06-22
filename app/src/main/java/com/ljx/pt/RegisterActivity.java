@@ -112,11 +112,17 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
 
+            btnRegister.setEnabled(false);
+            btnRegister.setText(R.string.btn_registering);
 
             new Thread(() -> {
                 userDao = new UserDao(RegisterActivity.this);
                 if (userDao.findByName(name) != null) {
-                    runOnUiThread(() -> Toast.makeText(RegisterActivity.this, R.string.toast_user_exists, Toast.LENGTH_SHORT).show());
+                    runOnUiThread(() -> {
+                        Toast.makeText(RegisterActivity.this, R.string.toast_user_exists, Toast.LENGTH_SHORT).show();
+                        btnRegister.setEnabled(true);
+                        btnRegister.setText(R.string.btn_register);
+                    });
                     return;
                 }
 
@@ -134,6 +140,8 @@ public class RegisterActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(this, R.string.toast_register_failed, Toast.LENGTH_SHORT).show();
                     }
+                    btnRegister.setEnabled(true);
+                    btnRegister.setText(R.string.btn_register);
                 });
             }).start();
         });

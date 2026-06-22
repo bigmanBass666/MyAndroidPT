@@ -2,13 +2,14 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ShapeSmall"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="@style/ShapeMedium"
+    app:cardCornerRadius="12dp"
     app:cardElevation="2dp"
     app:strokeColor="?attr/colorOutlineVariant"
     app:strokeWidth="1dp"
-    android:layout_margin="@dimen/list_card_margin"
+    android:layout_margin="4dp"
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground">
 
@@ -17,7 +18,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="@dimen/list_item_padding_vertical">
+        android:padding="12dp">
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/cb_done"
@@ -29,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginStart="@dimen/list_item_element_spacing">
+            android:layout_marginStart="8dp">
 
             <TextView
                 android:id="@+id/tv_title"

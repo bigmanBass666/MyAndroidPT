@@ -6,7 +6,7 @@
     android:background="?attr/colorSurface"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    android:padding="@dimen/page_padding">
+    android:padding="16dp">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -18,29 +18,17 @@
         android:navigationIcon="@drawable/ic_arrow_back"
         app:popupTheme="@style/ThemeOverlay.Material3.Light" />
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginTop="@dimen/form_field_spacing">
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/form_field_spacing"
-            style="@style/ShapeMedium"
-            app:cardElevation="2dp"
-            app:contentPadding="@dimen/card_content_padding">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="16dp">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/form_field_spacing"
+            android:layout_marginTop="16dp"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             app:boxStrokeColor="?attr/colorPrimary">
 
@@ -54,10 +42,9 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/form_field_spacing"
+            android:layout_marginTop="16dp"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             app:boxStrokeColor="?attr/colorPrimary"
             app:endIconMode="password_toggle">
@@ -74,7 +61,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/form_field_spacing"
+            android:layout_marginTop="16dp"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             app:boxStrokeColor="?attr/colorPrimary"
             app:endIconMode="password_toggle">
@@ -91,7 +78,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/form_field_spacing"
+            android:layout_marginTop="16dp"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             app:boxStrokeColor="?attr/colorPrimary">
 
@@ -110,22 +97,17 @@
         style="@style/MyBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/form_field_spacing"
+        android:layout_marginTop="16dp"
         android:text="@string/btn_register" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/rb_agree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/form_field_spacing"
+        android:layout_marginTop="8dp"
         android:text="@string/rb_agree_protocol"
         android:textColor="?attr/colorOnSurface"
         android:textSize="14sp" />
 
 </LinearLayout>
-
-	</com.google.android.material.card.MaterialCardView>
-
-</ScrollView>
-
 </LinearLayout>

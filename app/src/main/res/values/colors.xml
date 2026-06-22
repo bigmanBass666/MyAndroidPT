@@ -33,6 +33,13 @@
     <color name="on_surface_variant">#49454F</color>
     <color name="outline_light">#A79B8E</color>
 
+    <!-- 深色表面层 -->
+    <color name="surface_dark">#1C1B1F</color>
+    <color name="on_surface_dark">#E6E1E5</color>
+    <color name="surface_variant_dark">#49454F</color>
+    <color name="on_surface_variant_dark">#CAC4D0</color>
+    <color name="outline_dark">#938F99</color>
+
     <!-- 基础颜色 -->
     <color name="white">#FFFFFFFF</color>
     <color name="black">#FF000000</color>

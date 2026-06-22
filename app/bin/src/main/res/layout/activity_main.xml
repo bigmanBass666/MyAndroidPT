@@ -6,7 +6,7 @@
     android:background="?attr/colorSurface"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    android:padding="@dimen/page_padding">
+    android:padding="16dp">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -19,10 +19,10 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/form_field_spacing"
-        style="@style/ShapeMedium"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="12dp"
         app:cardElevation="2dp"
-        app:contentPadding="@dimen/card_content_padding">
+        app:contentPadding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,7 +47,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/form_field_spacing"
+        android:layout_marginTop="20dp"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         app:boxStrokeColor="?attr/colorPrimary"
         app:endIconMode="password_toggle">
@@ -64,7 +64,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/button_margin_top"
+        android:layout_marginTop="24dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -80,7 +80,7 @@
             android:id="@+id/cb_auto_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/checkbox_spacing"
+            android:layout_marginStart="32dp"
             android:text="@string/cb_auto_login"
             android:textColor="?attr/colorOnSurface"
             android:textSize="14sp" />
@@ -94,7 +94,7 @@
         style="@style/MyBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/button_margin_top"
+        android:layout_marginTop="24dp"
         android:insetLeft="0dp"
         android:insetRight="0dp"
         android:text="@string/btn_login"
@@ -106,7 +106,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/form_field_spacing"
+        android:layout_marginTop="16dp"
         android:text="@string/tv_register_prompt"
         app:iconPadding="0dp" />
 

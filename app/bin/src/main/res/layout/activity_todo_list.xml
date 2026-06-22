@@ -21,8 +21,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
-        android:paddingStart="@dimen/page_padding"
-        android:paddingEnd="@dimen/page_padding"
+        android:padding="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <!-- 空状态：插画 + 引导文字 -->
@@ -59,10 +60,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/page_padding"
+        android:layout_margin="16dp"
         android:src="@drawable/ic_add"
         android:contentDescription="@string/fab_add_todo"
         app:backgroundTint="?attr/colorPrimary"
-        app:tint="?attr/colorOnPrimary" />
+        app:tint="@color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

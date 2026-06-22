@@ -6,7 +6,7 @@
     android:background="?attr/colorSurface"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    android:padding="@dimen/page_padding">
+    android:padding="16dp">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -22,12 +22,10 @@
         android:id="@+id/til_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/form_field_spacing"
+        android:layout_marginTop="16dp"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         app:boxStrokeColor="?attr/colorPrimary"
-        app:errorEnabled="true"
-        app:counterEnabled="true"
-        app:counterMaxLength="50">
+        app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_title"
@@ -41,7 +39,7 @@
         android:id="@+id/til_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/form_field_spacing"
+        android:layout_marginTop="16dp"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         app:boxStrokeColor="?attr/colorPrimary">
 
@@ -61,7 +59,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="end"
-        android:layout_marginTop="@dimen/form_field_spacing">
+        android:layout_marginTop="12dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_cancel"
@@ -76,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btn_save"
-            android:layout_marginStart="@dimen/form_field_spacing" />
+            android:layout_marginStart="16dp" />
 
     </LinearLayout>
 

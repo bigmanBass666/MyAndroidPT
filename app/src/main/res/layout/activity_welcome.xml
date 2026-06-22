@@ -7,7 +7,7 @@
     android:background="?attr/colorSurface"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="@dimen/page_padding"
     tools:context=".WelcomeActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -38,10 +38,10 @@
         android:id="@+id/dashboard_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:cardCornerRadius="12dp"
+        android:layout_marginTop="@dimen/button_margin_top"
+        style="@style/ShapeMedium"
         app:cardElevation="2dp"
-        app:contentPadding="16dp"
+        app:contentPadding="@dimen/card_content_padding"
         android:visibility="visible">
 
         <LinearLayout
@@ -63,14 +63,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="?attr/colorPrimary"
-                    android:textSize="32sp"
+                    android:textSize="24sp"
                     android:textStyle="bold"
                     android:text="0" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="@dimen/gap_mini"
                     android:text="@string/stats_done_label"
                     android:textSize="14sp"
                     android:textColor="?attr/colorOnSurfaceVariant" />
@@ -94,14 +94,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="?attr/colorTertiary"
-                    android:textSize="32sp"
+                    android:textSize="24sp"
                     android:textStyle="bold"
                     android:text="0" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="@dimen/gap_mini"
                     android:text="@string/stats_pending_label"
                     android:textSize="14sp"
                     android:textColor="?attr/colorOnSurfaceVariant" />
@@ -116,15 +116,15 @@
         style="@style/Widget.Material3.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/form_field_spacing"
         android:text="@string/btn_quick_add" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_todo_list"
-        style="@style/Widget.Material3.Button"
+        style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/button_margin_top"
         android:text="@string/btn_todo_list" />
 
     <com.google.android.material.button.MaterialButton
@@ -132,7 +132,7 @@
         style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/button_margin_top"
         android:text="@string/btn_logout"
         app:strokeColor="?attr/colorError"
         android:textColor="?attr/colorError"
