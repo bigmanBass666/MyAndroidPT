@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="@style/ShapeMedium"
-    app:cardElevation="2dp"
-    app:strokeColor="?attr/colorOutlineVariant"
-    app:strokeWidth="1dp"
-    android:layout_margin="@dimen/list_card_margin"
-    android:clickable="true"
+    android:orientation="vertical"
     android:foreground="?attr/selectableItemBackground">
 
     <LinearLayout
@@ -17,7 +10,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="@dimen/list_item_padding_vertical">
+        android:paddingVertical="@dimen/list_item_padding_vertical"
+        android:paddingStart="@dimen/gap_small"
+        android:paddingEnd="@dimen/page_padding">
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/cb_done"
@@ -44,19 +39,21 @@
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
                 android:textColor="?attr/colorOnSurfaceVariant"
-                android:layout_marginTop="2dp" />
+                android:layout_marginTop="4dp" />
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_delete"
-            style="@style/Widget.Material3.Button.IconButton"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:focusable="false"
-            android:src="@drawable/ic_delete"
-            app:iconTint="@color/danger"
-            android:contentDescription="@string/btn_delete" />
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginStart="@dimen/list_item_element_spacing" />
 
     </LinearLayout>
 
-</com.google.android.material.card.MaterialCardView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="?attr/colorOutlineVariant" />
+
+</LinearLayout>

@@ -5,29 +5,29 @@
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    android:padding="@dimen/page_padding">
+    android:orientation="vertical">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:titleTextColor="?attr/colorOnPrimary"
+        android:background="?attr/colorSurface"
+        android:titleTextColor="?attr/colorOnSurface"
         android:title="@string/title_todo_add"
-        android:navigationIcon="@drawable/ic_arrow_back"
-        app:popupTheme="@style/ThemeOverlay.Material3.Light" />
+        android:navigationIcon="@drawable/ic_arrow_back" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_title"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/page_padding"
         android:layout_marginTop="@dimen/form_field_spacing"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-        app:boxStrokeColor="?attr/colorPrimary"
-        app:errorEnabled="true"
         app:counterEnabled="true"
-        app:counterMaxLength="50">
+        app:counterMaxLength="50"
+        app:errorEnabled="true"
+        app:startIconDrawable="@drawable/ic_note"
+        app:startIconTint="?attr/colorOnSurfaceVariant">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_title"
@@ -39,45 +39,23 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_content"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/page_padding"
         android:layout_marginTop="@dimen/form_field_spacing"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-        app:boxStrokeColor="?attr/colorPrimary">
+        app:startIconDrawable="@drawable/ic_description"
+        app:startIconTint="?attr/colorOnSurfaceVariant">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minLines="5"
             android:gravity="top|start"
             android:hint="@string/hint_todo_content"
             android:inputType="textMultiLine"
+            android:minLines="5"
             android:scrollbars="vertical" />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="end"
-        android:layout_marginTop="@dimen/form_field_spacing">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_cancel"
-            style="@style/Widget.Material3.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_cancel" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_save"
-            style="@style/Widget.Material3.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_save"
-            android:layout_marginStart="@dimen/form_field_spacing" />
-
-    </LinearLayout>
 
 </LinearLayout>

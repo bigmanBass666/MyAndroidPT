@@ -12,8 +12,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:titleTextColor="?attr/colorOnPrimary"
+        android:background="?attr/colorSurface"
+        android:titleTextColor="?attr/colorOnSurface"
         android:title="@string/title_register"
         android:navigationIcon="@drawable/ic_arrow_back"
         app:popupTheme="@style/ThemeOverlay.Material3.Light" />
@@ -42,7 +42,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/form_field_spacing"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            app:boxStrokeColor="?attr/colorPrimary">
+            app:boxStrokeColor="?attr/colorPrimary"
+            app:startIconDrawable="@drawable/ic_person"
+            app:startIconTint="?attr/colorOnSurfaceVariant">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_account"
@@ -60,6 +62,8 @@
             android:layout_marginTop="@dimen/form_field_spacing"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             app:boxStrokeColor="?attr/colorPrimary"
+            app:startIconDrawable="@drawable/ic_lock"
+            app:startIconTint="?attr/colorOnSurfaceVariant"
             app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -77,6 +81,8 @@
             android:layout_marginTop="@dimen/form_field_spacing"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             app:boxStrokeColor="?attr/colorPrimary"
+            app:startIconDrawable="@drawable/ic_lock"
+            app:startIconTint="?attr/colorOnSurfaceVariant"
             app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -93,7 +99,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/form_field_spacing"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            app:boxStrokeColor="?attr/colorPrimary">
+            app:boxStrokeColor="?attr/colorPrimary"
+            app:startIconDrawable="@drawable/ic_email"
+            app:startIconTint="?attr/colorOnSurfaceVariant">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_email"
