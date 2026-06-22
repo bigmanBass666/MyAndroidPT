@@ -82,3 +82,13 @@ C/
 
 # Third-party archieve
 archieve/
+
+# Build output directories
+app/bin/
+
+# SQLite databases (local test data)
+todo_*.db
+*.db
+
+# Local Claude skills (user-specific, not project-owned)
+.claude/skills/
