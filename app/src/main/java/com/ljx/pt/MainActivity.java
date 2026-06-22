@@ -3,6 +3,7 @@ package com.ljx.pt;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                         intent.putExtra("userName", name);
                         intent.putExtra("user_id", userId);
                         startActivity(intent);
-                        finish();
+                        new Handler(getMainLooper()).postDelayed(() -> finish(), 800);
                     }
                     btnLogin.setEnabled(true);
                     btnLogin.setText(R.string.btn_login);
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             editor.putBoolean("isRemember", false);
             editor.putBoolean("isAutoLogin", false);
         }
-        editor.apply();
+        editor.commit();
     }
 
     private void initData() {
@@ -147,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                     intent.putExtra("userName", name);
                     intent.putExtra("user_id", userId);
                     startActivity(intent);
-                    finish();
+                    new Handler(getMainLooper()).postDelayed(() -> finish(), 800);
                 } else {
                     Toast.makeText(MainActivity.this, "自动登录失败，请手动登录", Toast.LENGTH_SHORT).show();
                 }

@@ -2,8 +2,10 @@ package com.ljx.pt;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
-import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,8 +23,6 @@ public class TodoEditActivity extends AppCompatActivity {
 
     private EditText etTitle;
     private EditText etContent;
-    private Button btnCancel;
-    private Button btnSave;
     private MaterialToolbar toolbar;
     private TextInputLayout tilTitle;
 
@@ -36,14 +36,13 @@ public class TodoEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_todo_edit);
 
         toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
 
         tilTitle = findViewById(R.id.til_title);
 
         etTitle = findViewById(R.id.et_title);
         etContent = findViewById(R.id.et_content);
-        btnCancel = findViewById(R.id.btn_cancel);
-        btnSave = findViewById(R.id.btn_save);
 
         long userId = getIntent().getLongExtra("user_id", -1L);
         todoDao = new TodoDao(this, userId);
@@ -52,41 +51,52 @@ public class TodoEditActivity extends AppCompatActivity {
         isEditMode = todoId != -1;
 
         if (isEditMode) {
-            toolbar.setTitle("编辑待办");
+            getSupportActionBar().setTitle(R.string.title_todo_edit);
             loadTodo();
+        } else {
+            getSupportActionBar().setTitle(R.string.title_todo_add);
         }
+    }
 
-        btnCancel.setOnClickListener(v -> finish());
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_todo_edit, menu);
+        return true;
+    }
 
-        btnSave.setOnClickListener(v -> {
-            String title = etTitle.getText().toString().trim();
-            String content = etContent.getText().toString().trim();
-            if (TextUtils.isEmpty(title)) {
-                tilTitle.setError("标题不能为空");
-                return;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_save) {
+            saveTodo();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void saveTodo() {
+        String title = etTitle.getText().toString().trim();
+        String content = etContent.getText().toString().trim();
+        if (TextUtils.isEmpty(title)) {
+            tilTitle.setError("标题不能为空");
+            return;
+        } else {
+            tilTitle.setError(null);
+        }
+        new Thread(() -> {
+            Todo todo = new Todo();
+            todo.setTitle(title);
+            todo.setContent(content);
+            if (isEditMode) {
+                todo.setId(todoId);
+                todoDao.update(todo);
             } else {
-                tilTitle.setError(null);
+                todoDao.insert(todo);
             }
-            btnSave.setEnabled(false);
-            btnSave.setText(R.string.btn_saving);
-            new Thread(() -> {
-                Todo todo = new Todo();
-                todo.setTitle(title);
-                todo.setContent(content);
-                if (isEditMode) {
-                    todo.setId(todoId);
-                    todoDao.update(todo);
-                } else {
-                    todoDao.insert(todo);
-                }
-                runOnUiThread(() -> {
-                    btnSave.setEnabled(true);
-                    btnSave.setText(R.string.btn_save);
-                    Toast.makeText(this, R.string.toast_saved, Toast.LENGTH_SHORT).show();
-                    finish();
-                });
-            }).start();
-        });
+            runOnUiThread(() -> {
+                Toast.makeText(this, R.string.toast_saved, Toast.LENGTH_SHORT).show();
+                new Handler(getMainLooper()).postDelayed(() -> finish(), 800);
+            });
+        }).start();
     }
 
     private void loadTodo() {
