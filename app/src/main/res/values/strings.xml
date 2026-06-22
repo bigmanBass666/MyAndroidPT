@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MyAndroidPT</string>
+    <string name="app_name_display">MyAndroid</string>
+    <string name="app_tagline">记录每一个完成时刻</string>
     <string name="label_account">账号</string>
     <string name="label_password">密码</string>
     <string name="label_password_confirm">确认密码</string>
@@ -34,7 +36,7 @@
     <string name="btn_detail_delete">删除</string>
 
     <!-- 欢迎页 -->
-    <string name="welcome_back">欢迎回来，%1$s</string>
+    <string name="welcome_back">你好，%1$s</string>
     <string name="welcome_hint">管理你的每一天</string>
 
     <!-- 反馈提示 -->
@@ -47,10 +49,11 @@
 
 <!-- Toolbar 标题 -->
 <string name="title_login">登录</string>
-<string name="title_register">注册</string>
+<string name="title_register">创建账号</string>
 <string name="title_welcome">欢迎</string>
 <string name="title_todo_list">我的待办</string>
 <string name="title_todo_add">新增待办</string>
+<string name="title_todo_edit">编辑待办</string>
 <string name="title_todo_detail">待办详情</string>
 <string name="cb_detail_done">标记为已完成</string>
 <string name="label_todo_content">内容：</string>
@@ -61,7 +64,14 @@
     <!-- 欢迎页仪表盘 -->
     <string name="stats_done_label">已完成</string>
     <string name="stats_pending_label">待完成</string>
+    <string name="stats_new_label">新建</string>
     <string name="btn_quick_add">快速新建待办</string>
+    <string name="recent_todos_label">最近待办</string>
+    <string name="empty_recent_todos">还没有待办，点击 + 新建一个</string>
+    <string name="action_todo_list">待办列表</string>
+    <string name="action_settings">设置</string>
+    <string name="toast_logout_success">已退出登录</string>
+    <string name="settings_placeholder">设置功能开发中</string>
 
     <!-- 加载状态 -->
     <string name="btn_logging_in">登录中…</string>
@@ -82,4 +92,5 @@
     <string name="toast_agree_protocol">请勾选同意用户协议</string>
     <string name="toast_user_exists">该用户名已被注册</string>
     <string name="toast_register_failed">注册失败，请稍后重试</string>
+    <string name="toast_sample_todos_created">已为您创建示例待办</string>
 </resources>

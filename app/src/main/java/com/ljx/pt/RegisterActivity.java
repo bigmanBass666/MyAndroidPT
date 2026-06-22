@@ -1,6 +1,8 @@
 package com.ljx.pt;
 
+import com.ljx.pt.bean.Todo;
 import com.ljx.pt.bean.User;
+import com.ljx.pt.dao.TodoDao;
 import com.ljx.pt.dao.UserDao;
 
 import android.content.Intent;
@@ -127,6 +129,37 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 int rows = userDao.insert(new User(name, psw, email));
+                if (rows > 0) {
+                    // 为新用户创建 3 条示例待办
+                    User newUser = userDao.findByName(name);
+                    if (newUser != null) {
+                        TodoDao todoDao = new TodoDao(RegisterActivity.this, newUser.getId());
+                        long now = System.currentTimeMillis();
+
+                        Todo t1 = new Todo();
+                        t1.setTitle("欢迎使用 MyAndroid！");
+                        t1.setContent("试试编辑、标记完成、删除 — 所有操作都可以在这里完成。");
+                        t1.setDone(false);
+                        t1.setCreateTime(now);
+                        todoDao.insert(t1);
+
+                        Todo t2 = new Todo();
+                        t2.setTitle("试着标记我为已完成");
+                        t2.setContent("点一下详情页的复选框，可以切换待办状态。");
+                        t2.setDone(false);
+                        t2.setCreateTime(now + 1000);
+                        todoDao.insert(t2);
+
+                        Todo t3 = new Todo();
+                        t3.setTitle("查看待办列表");
+                        t3.setContent("从右上角菜单进入完整待办列表，一目了然。");
+                        t3.setDone(true);
+                        t3.setCreateTime(now + 2000);
+                        todoDao.insert(t3);
+
+                        todoDao.close();
+                    }
+                }
                 runOnUiThread(() -> {
                     if (rows > 0) {
                         Toast.makeText(this, R.string.toast_register_success, Toast.LENGTH_SHORT).show();
