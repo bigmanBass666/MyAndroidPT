@@ -30,6 +30,7 @@ public class TodoEditActivity extends AppCompatActivity {
     private long todoId = -1;
     private boolean isEditMode = false;
 
+    /** 初始化 UI，区分新增/编辑模式——EXTRA_TODO_ID=-1 为新增，否则为编辑 */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

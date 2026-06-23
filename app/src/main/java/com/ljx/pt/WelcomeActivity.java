@@ -41,6 +41,10 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     private TextView tvEmptyRecent;
     private long userId;
 
+    /**
+     * 初始化欢迎页 UI，设置 Toolbar 为 ActionBar，加载用户名欢迎语，
+     * 绑定快速操作按钮和 FAB 点击事件，最后异步加载仪表盘数据。
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,18 +79,27 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         loadDashboardData();
     }
 
+    /**
+     * 每次页面重新可见时刷新仪表盘数据，确保待办统计与最新数据同步。
+     */
     @Override
     protected void onResume() {
         super.onResume();
         loadDashboardData();
     }
 
+    /**
+     * 加载欢迎页的菜单布局文件
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_welcome, menu);
         return true;
     }
 
+    /**
+     * 处理菜单项点击：跳转到待办列表、退出登录（清除自动登录状态）、设置（占位）
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
@@ -113,6 +126,9 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * FAB 和快速新建按钮点击处理：跳转到待办编辑页
+     */
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -123,6 +139,10 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    /**
+     * 子线程查询所有待办，统计已完成/待办数量，
+     * 取最近 3 条展示在仪表盘，通过 runOnUiThread 更新 UI。
+     */
     private void loadDashboardData() {
         new Thread(() -> {
             TodoDao todoDao = new TodoDao(this, userId);
@@ -159,6 +179,10 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         }).start();
     }
 
+    /**
+     * 纯代码动态构建最近待办列表：遍历 todos 创建 LinearLayout + 状态指示器 + 分割线，
+     * 不使用 XML 布局，通过 TypedValue 解析主题色适配深色模式。
+     */
     private void updateRecentTodos(List<Todo> todos) {
         recentTodosContainer.removeAllViews();
         if (todos.isEmpty()) {

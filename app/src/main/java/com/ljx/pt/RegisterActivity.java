@@ -35,6 +35,10 @@ public class RegisterActivity extends AppCompatActivity {
     private CheckBox rbAgree;
     private TextInputLayout tilPassword;
 
+    /**
+     * 初始化注册页面 UI，绑定密码强度实时检测的 TextWatcher，
+     * 配置注册按钮点击监听器（子线程判重/插入用户/创建示例待办/回传登录页）。
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +55,10 @@ public class RegisterActivity extends AppCompatActivity {
         rbAgree = findViewById(R.id.rb_agree);
         tilPassword = findViewById(R.id.til_password);
 
-        // 密码强度实时检测
+        /**
+         * 密码输入实时检测：每次输入变化回调 afterTextChanged，重新评估密码强度
+         * 并通过 TextInputLayout 显示弱/中/强提示。
+         */
         etPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -59,6 +66,10 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
+            /**
+             * TextWatcher 回调：每次用户输入变化时重新检测密码强度并更新 UI 提示，
+             * 输入为空时清除所有提示状态。
+             */
             @Override
             public void afterTextChanged(Editable s) {
                 String psw = s.toString();
@@ -87,6 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        // 注册按钮：子线程判重 → 插入用户 → 创建 3 条示例待办 → 回传信息给登录页
         btnRegister.setOnClickListener(v -> {
             String name = etAccount.getText().toString().trim();
             String psw = etPassword.getText().toString().trim();
@@ -201,6 +213,7 @@ public class RegisterActivity extends AppCompatActivity {
         return 1; // 中
     }
 
+    /** 关闭数据库连接，释放资源 */
     @Override
     protected void onDestroy() {
         super.onDestroy();

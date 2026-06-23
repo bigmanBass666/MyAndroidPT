@@ -38,6 +38,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoVH> {
         this.listener = listener;
     }
 
+    /** 替换整个数据列表并刷新 UI */
     public void setTodos(List<Todo> list) {
         todos.clear();
         if (list != null) todos.addAll(list);

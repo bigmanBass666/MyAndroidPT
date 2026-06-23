@@ -33,13 +33,18 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
     private ActivityResultLauncher<Intent> registerLauncher;
 
+    /**
+     * 初始化登录页面 UI，绑定 CheckBox 联动监听器，
+     * 注册 registerForActivityResult 以接收注册页回传的用户名密码，
+     * 最后检查 SharedPreferences 判断是否自动登录或记住密码。
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         etAccount = findViewById(R.id.et_account);
-        etPassword = findViewById(R.id.et_password);
+        etPassword = findViewById(R.id.et_password); // 注：inputType 已由 numberPassword 修复为 textPassword，支持字母输入
         btnLogin = findViewById(R.id.btn_login);
         cbRemember = findViewById(R.id.cb_pass_remember);
         cbAutoLogin = findViewById(R.id.cb_auto_login);
@@ -48,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         cbAutoLogin.setOnCheckedChangeListener(this);
         cbRemember.setOnCheckedChangeListener(this);
 
+        // 登录按钮：子线程校验账号密码，区分「用户不存在」/「密码错误」/「成功」三种结果
         btnLogin.setOnClickListener(v -> {
             String name = etAccount.getText().toString().trim();
             String psw = etPassword.getText().toString().trim();
@@ -82,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             }).start();
         });
 
+        // 注册页面回调：接收注册成功后回传的用户名密码，自动填入登录输入框
         registerLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -104,6 +111,10 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         initData();
     }
 
+    /**
+     * 保存登录状态到 SharedPreferences，仅在「记住密码」勾选时才持久化账号密码，
+     * 否则清除记住状态。
+     */
     private void saveLoginState(String name, String psw, long userId) {
         SharedPreferences spf = getSharedPreferences("user_info", MODE_PRIVATE);
         SharedPreferences.Editor editor = spf.edit();
@@ -120,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         editor.commit();
     }
 
+    /** 读取 SharedPreferences，根据记住密码/自动登录状态恢复输入框或执行自动登录 */
     private void initData() {
         SharedPreferences spf = getSharedPreferences("user_info", MODE_PRIVATE);
         boolean isRemember = spf.getBoolean("isRemember", false);
@@ -136,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         }
     }
 
+    /** 子线程执行自动登录校验，成功则直接跳转到欢迎页，失败提示手动登录 */
     private void performAutoLogin(String name, String psw) {
         new Thread(() -> {
             userDao = new UserDao(MainActivity.this);
@@ -156,6 +169,10 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         }).start();
     }
 
+    /**
+     * CheckBox 联动逻辑：勾选「自动登录」→ 自动勾选「记住密码」；
+     * 取消「记住密码」→ 自动取消「自动登录」。
+     */
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (buttonView == cbAutoLogin) {
@@ -164,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             if (!isChecked) cbAutoLogin.setChecked(false);
         }
     }
+    /** 关闭数据库连接，释放资源 */
     @Override
     protected void onDestroy() {
         super.onDestroy();

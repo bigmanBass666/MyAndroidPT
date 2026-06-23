@@ -42,6 +42,7 @@ public class TodoDetailActivity extends AppCompatActivity {
     private static final SimpleDateFormat DATE_FMT =
             new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
 
+    /** 初始化 UI，绑定 Toolbar 菜单（编辑按钮）、加载待办详情、设置删除按钮弹出确认对话框 */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

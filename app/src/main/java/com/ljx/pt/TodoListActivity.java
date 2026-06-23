@@ -30,6 +30,10 @@ public class TodoListActivity extends AppCompatActivity implements TodoAdapter.O
     private TextView tvEmptyHint;
     private View emptyStateContainer;
 
+    /**
+     * 初始化 RecyclerView 及 Adapter、FAB 新增按钮、空状态提示视图，
+     * 创建 TodoDao 实例并加载待办列表。
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +59,18 @@ public class TodoListActivity extends AppCompatActivity implements TodoAdapter.O
         loadTodos();
     }
 
+    /**
+     * 每次回到列表页时重新加载数据，确保列表与数据库同步。
+     */
     @Override
     protected void onResume() {
         super.onResume();
         loadTodos();
     }
 
+    /**
+     * 子线程查询所有待办，更新 Adapter 数据并切换空状态视图的可见性。
+     */
     private void loadTodos() {
         new Thread(() -> {
             List<Todo> list = todoDao.queryAll();
@@ -74,6 +84,9 @@ public class TodoListActivity extends AppCompatActivity implements TodoAdapter.O
         }).start();
     }
 
+    /**
+     * 待办状态切换回调：子线程更新数据库中的完成状态，刷新列表。
+     */
     @Override
     public void onToggleDone(long todoId, boolean isDone) {
         new Thread(() -> {
@@ -82,6 +95,9 @@ public class TodoListActivity extends AppCompatActivity implements TodoAdapter.O
         }).start();
     }
 
+    /**
+     * 弹出删除确认对话框，用户确认后在子线程执行删除操作并刷新列表。
+     */
     @Override
     public void onDelete(long todoId, String todoTitle) {
         if (TextUtils.isEmpty(todoTitle)) {
@@ -106,6 +122,9 @@ public class TodoListActivity extends AppCompatActivity implements TodoAdapter.O
                 .show();
     }
 
+    /**
+     * 列表项点击跳转到待办详情页
+     */
     @Override
     public void onItemClick(long todoId) {
         Intent intent = new Intent(TodoListActivity.this, TodoDetailActivity.class);
@@ -114,6 +133,7 @@ public class TodoListActivity extends AppCompatActivity implements TodoAdapter.O
         startActivity(intent);
     }
 
+    /** 关闭数据库连接，释放资源 */
     @Override
     protected void onDestroy() {
         super.onDestroy();

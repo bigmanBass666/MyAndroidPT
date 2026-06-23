@@ -13,14 +13,14 @@ public class UserDao {
         dbHelper = new UserDBHelper(context);
     }
 
-    // 登录结果枚举：区分不同失败原因
+    /** 登录结果枚举：区分不同失败原因 */
     public enum LoginResult {
         OK,
         USER_NOT_FOUND,
         WRONG_PASSWORD
     }
 
-    // 根据用户名登录
+    /** 根据用户名和密码校验登录，通过 LoginResult 区分成功/用户不存在/密码错误三种结果 */
     public LoginResult login(String name, String psw) {
         User user = dbHelper.findByName(name);
         if (user == null) {
@@ -32,16 +32,17 @@ public class UserDao {
         return LoginResult.OK;
     }
 
-    // 根据用户名查询
+    /** 按用户名精确查找用户，用于登录校验和注册判重 */
     public User findByName(String name) {
         return dbHelper.findByName(name);
     }
 
+    /** 关闭数据库连接，防止资源泄漏 */
     public void close() {
         dbHelper.close();
     }
 
-// 插入新用户（注册）
+/** 插入新用户到数据库（注册时调用），返回 1 表示成功、0 表示失败 */
     public int insert(User user) {
         long rowId = dbHelper.insert(user);
         return rowId > 0 ? 1 : 0;

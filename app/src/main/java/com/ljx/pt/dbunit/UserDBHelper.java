@@ -18,7 +18,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
-    // 首次创建数据库时执行建表语句
+    /** 首次创建数据库时执行建表语句，创建 userinfo 表 */
     @Override
     public void onCreate(SQLiteDatabase db) {
         // 创建用户信息表：_id 自增主键、name 唯一用户名、psw 密码、email 邮箱
@@ -30,14 +30,14 @@ public class UserDBHelper extends SQLiteOpenHelper {
         db.execSQL(sql);
     }
 
-    // 数据库升级：删除旧表并重建（数据会丢失，仅教学演示）
+    /** 数据库升级：删除旧表并重建（数据会丢失，仅教学演示） */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 
-    // 将 User 对象插入数据库
+    /** 将 User 对象属性写入 ContentValues，插入 userinfo 表，返回插入行 id */
     public long insert(User user) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -47,7 +47,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
         return db.insert(TABLE_NAME, null, values);
     }
 
-    // 根据用户名查询用户信息
+    /** 用参数化查询（WHERE name=?）防止 SQL 注入，按用户名查询用户信息 */
     public User findByName(String name) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, null, "name=?", new String[]{name}, null, null, null);
